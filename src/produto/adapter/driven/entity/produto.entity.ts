@@ -8,9 +8,6 @@ export class ProdutoEntity {
     @Column({ name: 'nome', nullable: false, length: 250 })
     nome: string;
 
-    @Column({ name: 'descricao', nullable: false, length: 250 })
-    descricao: string;
-
     @Column({ name: 'categoria', nullable: false, length: 250 })
     categoria: string;
 
