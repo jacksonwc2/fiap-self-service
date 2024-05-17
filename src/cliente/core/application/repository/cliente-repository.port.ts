@@ -1,8 +1,8 @@
-import { Cliente } from 'src/cliente/adapter/driven/entity/cliente.entity';
 import { CadastrarClienteDTO } from '../../domain/cadastrarClienteDTO';
+import { ClienteDTO } from '../../domain/ClienteDTO';
 
 export abstract class IClienteRepository {
-  abstract salvarCliente(clienteDTO: CadastrarClienteDTO): Promise<Cliente>;
-  abstract getByEmail(email: string): Promise<Cliente>;
-  abstract getByCPF(cpf: string): Promise<Cliente>;
+  abstract salvarCliente(clienteDTO: CadastrarClienteDTO): Promise<ClienteDTO>;
+  abstract adquirirPorEmail(email: string): Promise<ClienteDTO>;
+  abstract adquirirPorCPF(cpf: string): Promise<ClienteDTO>;
 }

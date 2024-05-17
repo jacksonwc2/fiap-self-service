@@ -3,6 +3,7 @@ import { IClienteRepository } from 'src/cliente/core/application/repository/clie
 import { CadastrarClienteDTO } from 'src/cliente/core/domain/cadastrarClienteDTO';
 import { Repository } from 'typeorm';
 import { Cliente } from '../entity/cliente.entity';
+import { ClienteDTO } from 'src/cliente/core/domain/ClienteDTO';
 
 @Injectable()
 export class ClienteRepositoryService implements IClienteRepository {
@@ -11,15 +12,15 @@ export class ClienteRepositoryService implements IClienteRepository {
     private clienteRepository: Repository<Cliente>,
   ) {}
 
-  async getByEmail(email: string): Promise<Cliente> {
+  async adquirirPorEmail(email: string): Promise<ClienteDTO> {
     return await this.clienteRepository.findOneBy({email});
   }
 
-  async getByCPF(cpf: string): Promise<Cliente> {
+  async adquirirPorCPF(cpf: string): Promise<ClienteDTO> {
     return await this.clienteRepository.findOneBy({cpf});
   }
 
-  async salvarCliente(clienteDTO: CadastrarClienteDTO): Promise<Cliente> {
+  async salvarCliente(clienteDTO: CadastrarClienteDTO): Promise<ClienteDTO> {
     const cliente: Cliente = { ...clienteDTO, id: null };
     return await this.clienteRepository.save(cliente);
   }

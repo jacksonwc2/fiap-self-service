@@ -26,8 +26,7 @@ export class ClienteController {
       'Para cadastrar um novo cliente é necessário informar os campos obrigatórios nome, e-mail e CPF(válido). Se o CPF ou e-mail informado já estiver cadastrado você será notificado.',
   })
   @ApiResponse({ status: 201, description: 'Cliente cadastrado com sucesso.' })
-  @ApiResponse({ status: 400, description: 'CPF já cadastrado.' })
-  @ApiResponse({ status: 400, description: 'E-mail já cadastrado.' })
+  @ApiResponse({ status: 400, description: 'Dados inválidos para o cadastro.' })
   async cadastrarCliente(
     @Body() clienteDTO: CadastrarClienteDTO
   ): Promise<ClienteDTO> {
@@ -41,8 +40,7 @@ export class ClienteController {
       'Verifica se o CPF informado está cadastrado e retorna os dados do Cliente.',
   })
   @ApiResponse({ status: 200,  description: 'Cliente encontrado.' })
-  @ApiResponse({ status: 400, description: 'CPF inválido.' })
-  @ApiResponse({ status: 400, description: 'CPF não cadastrado. Verifique se o CPF informado está correto ou cadastre um novo Cliente com este CPF.' })
+  @ApiResponse({ status: 400, description: 'Cliente não encontrado.' })
   async buscarClientePorCPF(
     @Param('cpf') cpf: string
   ): Promise<ClienteDTO> {

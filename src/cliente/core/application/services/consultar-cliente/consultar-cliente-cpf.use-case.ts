@@ -1,5 +1,5 @@
-import { Cliente } from 'src/cliente/adapter/driven/entity/cliente.entity';
+import { ClienteDTO } from 'src/cliente/core/domain/ClienteDTO';
 
 export abstract class IConsultarClientePorCPFUseCase {
-  abstract buscarClientePorCPF(cpf: string): Promise<Cliente>;
+  abstract buscarClientePorCPF(cpf: string): Promise<ClienteDTO>;
 }
