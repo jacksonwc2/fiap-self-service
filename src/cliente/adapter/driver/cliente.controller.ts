@@ -12,7 +12,7 @@ import { IConsultarClientePorCPFUseCase } from 'src/cliente/core/application/ser
 import { ClienteDTO } from 'src/cliente/core/domain/ClienteDTO';
 
 @ApiTags('Clientes')
-@Controller()
+@Controller('cliente')
 export class ClienteController {
   constructor(
     private readonly cadastrarClienteUSeCase: ICadastrarClienteUseCase,
