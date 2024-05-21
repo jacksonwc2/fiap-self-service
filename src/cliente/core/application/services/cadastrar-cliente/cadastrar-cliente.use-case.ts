@@ -1,6 +1,5 @@
-import { CadastrarClienteDTO } from '../../../domain/cadastrarClienteDTO';
-import { ClienteDTO } from 'src/cliente/core/domain/ClienteDTO';
+import { Cliente } from 'src/cliente/core/domain/Cliente';
 
 export abstract class ICadastrarClienteUseCase {
-  abstract cadastrarCliente(clienteDTO: CadastrarClienteDTO): Promise<ClienteDTO>;
+  abstract cadastrarCliente(cliente: Cliente): Promise<Cliente>;
 }

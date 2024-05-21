@@ -1,14 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IConsultarClientePorCPFUseCase } from './consultar-cliente-cpf.use-case';
 import { IClienteRepository } from '../../repository/cliente-repository.port';
-import { ClienteDTO } from 'src/cliente/core/domain/ClienteDTO';
+import { Cliente } from 'src/cliente/core/domain/Cliente';
 import { removerCaracteresAlfanumericos } from 'src/common/utils/removerCaracteresAlfanumericos';
 
 @Injectable()
 export class ConsultarClientePorCPFService implements IConsultarClientePorCPFUseCase {
     constructor(private readonly clienteRepository: IClienteRepository) {}
     
-    async buscarClientePorCPF(cpf: string): Promise<ClienteDTO> {
+    async buscarClientePorCPF(cpf: string): Promise<Cliente> {
 
         // remove caracteres do CPF
         const valorCPF = removerCaracteresAlfanumericos(cpf);

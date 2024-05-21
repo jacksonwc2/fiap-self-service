@@ -1,10 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Cliente {
+export class ClienteEntity {
 
-  @PrimaryGeneratedColumn()
-  id: number | null;
+  @PrimaryGeneratedColumn('uuid')
+  id: string | null;
 
   @Column({ length: 250 })
   nome: string;

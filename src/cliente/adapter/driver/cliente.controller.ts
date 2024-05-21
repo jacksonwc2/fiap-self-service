@@ -7,9 +7,8 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ICadastrarClienteUseCase } from 'src/cliente/core/application/services/cadastrar-cliente/cadastrar-cliente.use-case';
-import { CadastrarClienteDTO } from 'src/cliente/core/domain/cadastrarClienteDTO';
 import { IConsultarClientePorCPFUseCase } from 'src/cliente/core/application/services/consultar-cliente/consultar-cliente-cpf.use-case';
-import { ClienteDTO } from 'src/cliente/core/domain/ClienteDTO';
+import { Cliente } from 'src/cliente/core/domain/Cliente';
 
 @ApiTags('Clientes')
 @Controller('cliente')
@@ -28,9 +27,9 @@ export class ClienteController {
   @ApiResponse({ status: 201, description: 'Cliente cadastrado com sucesso.' })
   @ApiResponse({ status: 400, description: 'Dados inválidos para o cadastro.' })
   async cadastrarCliente(
-    @Body() clienteDTO: CadastrarClienteDTO
-  ): Promise<ClienteDTO> {
-    return await this.cadastrarClienteUSeCase.cadastrarCliente(clienteDTO);
+    @Body() cliente: Cliente
+  ): Promise<Cliente> {
+    return await this.cadastrarClienteUSeCase.cadastrarCliente(cliente);
   }
 
   @Get(':cpf')
@@ -43,7 +42,7 @@ export class ClienteController {
   @ApiResponse({ status: 400, description: 'Cliente não encontrado.' })
   async buscarClientePorCPF(
     @Param('cpf') cpf: string
-  ): Promise<ClienteDTO> {
+  ): Promise<Cliente> {
     return await this.consultarClientePorCPFUseCase.buscarClientePorCPF(cpf);
   }
 }

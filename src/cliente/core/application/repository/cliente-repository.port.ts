@@ -1,8 +1,7 @@
-import { CadastrarClienteDTO } from '../../domain/cadastrarClienteDTO';
-import { ClienteDTO } from '../../domain/ClienteDTO';
+import { Cliente } from '../../domain/Cliente';
 
 export abstract class IClienteRepository {
-  abstract salvarCliente(clienteDTO: CadastrarClienteDTO): Promise<ClienteDTO>;
-  abstract adquirirPorEmail(email: string): Promise<ClienteDTO>;
-  abstract adquirirPorCPF(cpf: string): Promise<ClienteDTO>;
+  abstract salvarCliente(cliente: Cliente): Promise<Cliente>;
+  abstract adquirirPorEmail(email: string): Promise<Cliente>;
+  abstract adquirirPorCPF(cpf: string): Promise<Cliente>;
 }

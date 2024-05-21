@@ -1,5 +1,5 @@
-import { ClienteDTO } from 'src/cliente/core/domain/ClienteDTO';
+import { Cliente } from 'src/cliente/core/domain/Cliente';
 
 export abstract class IConsultarClientePorCPFUseCase {
-  abstract buscarClientePorCPF(cpf: string): Promise<ClienteDTO>;
+  abstract buscarClientePorCPF(cpf: string): Promise<Cliente>;
 }
