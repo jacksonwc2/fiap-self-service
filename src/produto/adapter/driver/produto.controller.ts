@@ -1,13 +1,18 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ICadastrarProdutoUseCase } from "src/produto/core/application/services/cadastras-produto/cadastrar-produto.use-case";
 import { CadastrarProdutoDTO } from "src/produto/core/domain/cadastrarProdutoDTO";
+import { ProdutoRepositoryService } from "../driven/produto-repository/produto-repository.service";
 
 @ApiTags('Produtos')
 @Controller('produtos')
 export class ProdutoController{
-    cadastrarProdutoUSeCase: any;
 
-    constructor(){}
+    constructor(
+        private readonly cadastrarProdutoUSeCase: ICadastrarProdutoUseCase,
+        private readonly consultarProduto: ProdutoRepositoryService
+
+    ){}
 
     @ApiOperation({
         summary: 'Cadastrar Produto',
@@ -19,5 +24,10 @@ export class ProdutoController{
     @Post()
     async cadastarProduto(@Body() produtoDTO: CadastrarProdutoDTO) {
         return await this.cadastrarProdutoUSeCase.cadastrarProduto(produtoDTO);
+    }
+
+    @Get()
+    async listarProdutos(){
+        return await this.consultarProduto.listarProdutos();
     }
 }

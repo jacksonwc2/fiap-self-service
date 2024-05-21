@@ -5,10 +5,6 @@ export class CadastrarProdutoDTO{
 
     @IsNotEmpty()
     @ApiProperty()
-    id: number;
-
-    @IsNotEmpty()
-    @ApiProperty()
     nome: string;
 
     @IsNotEmpty()
