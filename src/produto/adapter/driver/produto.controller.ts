@@ -3,7 +3,7 @@ import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CadastrarProdutoDTO } from "src/produto/core/domain/cadastrarProdutoDTO";
 
 @ApiTags('Produtos')
-@Controller('/produtos')
+@Controller('produtos')
 export class ProdutoController{
     cadastrarProdutoUSeCase: any;
 
