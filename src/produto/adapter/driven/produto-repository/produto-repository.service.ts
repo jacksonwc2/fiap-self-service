@@ -10,9 +10,10 @@ export class ProdutoRepositoryService implements IProdutoRepository {
         @Inject('PRODUTO_REPOSITORY')
         private produtoRepository: Repository<ProdutoEntity>,
     ) {}
-    
-    listarProduto() {
-        throw new Error("Method not implemented.");
+
+    async buscarProdutoPorNome(nome: string) {
+        const produtoPorNome = await this.produtoRepository.findOne({ where: {nome}})
+        return produtoPorNome;
     }
 
     async listarProdutos(){
@@ -20,7 +21,7 @@ export class ProdutoRepositoryService implements IProdutoRepository {
     }
 
     async listarProdutosCategoria(categoria: string){
-        return await this.produtoRepository.findOneBy({categoria});
+        return await this.produtoRepository.find( { where: { categoria }});
     }
 
     async cadastrarProduto(produtoEntity: ProdutoEntity){

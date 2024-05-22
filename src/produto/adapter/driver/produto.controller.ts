@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ICadastrarProdutoUseCase } from "src/produto/core/application/services/cadastras-produto/cadastrar-produto.use-case";
 import { CadastrarProdutoDTO } from "src/produto/core/domain/cadastrarProdutoDTO";
@@ -10,7 +10,7 @@ export class ProdutoController{
 
     constructor(
         private readonly cadastrarProdutoUSeCase: ICadastrarProdutoUseCase,
-        private readonly consultarProduto: ProdutoRepositoryService
+        private readonly produtoRepository: ProdutoRepositoryService,
 
     ){}
 
@@ -28,6 +28,11 @@ export class ProdutoController{
 
     @Get()
     async listarProdutos(){
-        return await this.consultarProduto.listarProdutos();
+        return await this.produtoRepository.listarProdutos();
+    }
+
+    @Get('/:categoria')
+    async buscarProdutoPorCategoria(@Param('categoria') categoria: string){
+        return await this.produtoRepository.listarProdutosCategoria(categoria);
     }
 }
