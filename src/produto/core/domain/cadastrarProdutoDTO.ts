@@ -9,6 +9,10 @@ export class CadastrarProdutoDTO{
 
     @IsNotEmpty()
     @ApiProperty()
+    descricao: string;
+
+    @IsNotEmpty()
+    @ApiProperty()
     categoria: string;
 
     @IsNotEmpty()

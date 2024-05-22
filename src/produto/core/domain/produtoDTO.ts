@@ -9,6 +9,9 @@ export class ProdutoDTO{
     nome: string;
 
     @ApiProperty()
+    descricao: string;
+
+    @ApiProperty()
     categoria: string;
 
     @ApiProperty()
