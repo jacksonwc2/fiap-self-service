@@ -18,40 +18,56 @@ export class ProdutoController{
     @ApiOperation({
         summary: 'Cadastrar Produto',
         description:
-          'Para cadastrar um novo produto é necessário informar os campos obrigatórios nome, descrição, categoria e valor',
-      })
-      @ApiResponse({ status: 201, description: 'Produto cadastrado com sucesso.' })
-      @ApiResponse({ status: 400, description: 'Produto já cadastrado.' })
+            'Para cadastrar um novo produto é necessário informar os campos obrigatórios nome, descrição, categoria e valor',
+    })
+    @ApiResponse({ status: 201, description: 'Produto cadastrado com sucesso.' })
+    @ApiResponse({ status: 400, description: 'Produto já cadastrado.' })
     @Post()
     async cadastarProduto(@Body() produtoDTO: CadastrarProdutoDTO) {
-        return await this.cadastrarProdutoUSeCase.cadastrarProduto(produtoDTO);
+        await this.cadastrarProdutoUSeCase.cadastrarProduto(produtoDTO);
     }
 
+    @ApiOperation({
+        summary: 'Listagem de Produtos',
+        description: 'Lista contendo todos os produtos cadastrados',
+    })
+    @ApiResponse({ status: 200, description: 'Produtos listados com sucesso.' })
+    @ApiResponse({ status: 400, description: 'Produtos não encontrados.' })
     @Get()
     async listarProdutos(){
         return await this.produtoRepository.listarProdutos();
     }
 
+    @ApiOperation({
+        summary: 'Listagem de Produtos por Categoria',
+        description: 'Para listar os produtos é necessário informar uma categoria',
+    })
+    @ApiResponse({ status: 200, description: 'Produto listado com sucesso.' })
+    @ApiResponse({ status: 400, description: 'Produto não encontrado.' })
     @Get('/:categoria')
     async buscarProdutoPorCategoria(@Param('categoria') categoria: string){
         return await this.produtoRepository.listarProdutosCategoria(categoria);
     }
 
+    @ApiOperation({
+        summary: 'Atualização de Produto',
+        description: 'Para atualizar um produto é necessário informar o ID. Todos os campos são opcionais.',
+    })
+    @ApiResponse({ status: 200, description: 'Produto atualizado com sucesso.' })
+    @ApiResponse({ status: 400, description: 'Produto não encontrado.' })
     @Put('/:id')
     async editarProduto(@Param('id') id: string, @Body() novosDados: EditarProdutoDTO){
-        const produtoAtualizado = await this.produtoRepository.editarProduto(id, novosDados);
-
-        return {
-            produto: produtoAtualizado,
-            message: 'Produto atualizado com sucesso.'
-        }
+        return await this.produtoRepository.editarProduto(id, novosDados);
     }
 
+    @ApiOperation({
+        summary: 'Exclusão de Produto',
+        description: 'Para atualizar um produto é necessário informar o ID.',
+    })
+    @ApiResponse({ status: 200, description: 'Produto excluído com sucesso.' })
+    @ApiResponse({ status: 400, description: 'Produto não existe na base de dados.' })
     @Delete('/:id')
     async deletarProduto(@Param('id') id: string){
         await this.produtoRepository.deletarProduto(id);
-        return{
-            message: 'Produto excluído com sucesso.'
-        }
     }
 }

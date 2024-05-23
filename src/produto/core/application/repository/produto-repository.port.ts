@@ -6,4 +6,5 @@ export abstract class IProdutoRepository {
     abstract listarProdutos();
     abstract buscarProdutoPorNome(nome: string);
     abstract editarProduto(id: string, produto: EditarProdutoDTO);
+    abstract deletarProduto(id: string);
 }
