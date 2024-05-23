@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ICadastrarProdutoUseCase } from "src/produto/core/application/services/cadastras-produto/cadastrar-produto.use-case";
 import { CadastrarProdutoDTO } from "src/produto/core/domain/cadastrarProdutoDTO";
@@ -40,5 +40,18 @@ export class ProdutoController{
     @Put('/:id')
     async editarProduto(@Param('id') id: string, @Body() novosDados: EditarProdutoDTO){
         const produtoAtualizado = await this.produtoRepository.editarProduto(id, novosDados);
+
+        return {
+            produto: produtoAtualizado,
+            message: 'Produto atualizado com sucesso.'
+        }
+    }
+
+    @Delete('/:id')
+    async deletarProduto(@Param('id') id: string){
+        await this.produtoRepository.deletarProduto(id);
+        return{
+            message: 'Produto excluído com sucesso.'
+        }
     }
 }

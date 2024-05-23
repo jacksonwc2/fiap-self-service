@@ -29,11 +29,11 @@ export class ProdutoRepositoryService implements IProdutoRepository {
         return await this.produtoRepository.save(produtoEntity);
     }
 
-    async removerProduto(id: string){
-        await this.produtoRepository.delete(id)
-    }
-
     async editarProduto(id: string, novosDados: EditarProdutoDTO) {
         await this.produtoRepository.update(id, novosDados);
+    }
+
+    async deletarProduto(id: string){
+        await this.produtoRepository.delete(id);
     }
 }
