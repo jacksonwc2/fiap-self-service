@@ -22,10 +22,6 @@ export class ProdutoRepositoryService implements IProdutoRepository {
         return await this.produtoRepository.find();
     }
 
-    async listarProdutosCategoria(categoria: string){
-        return await this.produtoRepository.find( { where: { categoria }});
-    }
-
     async cadastrarProduto(produtoEntity: ProdutoEntity){
         return await this.produtoRepository.save(produtoEntity);
     }

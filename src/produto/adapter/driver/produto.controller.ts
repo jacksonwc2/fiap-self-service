@@ -46,13 +46,8 @@ export class ProdutoController{
     @ApiResponse({ status: 200, description: 'Produto listado com sucesso.' })
     @ApiResponse({ status: 400, description: 'Produto não encontrado.' })
     @Get('/:categoria')
-    @ApiOperation({
-        summary: 'Buscar Produtos por Categoria',
-        description: 'Lista todos os Produtos de determinada Categoria.'
-    })
-    @ApiResponse({status: 200, description: 'Produtos listados com sucesso.'})
     async buscarProdutoPorCategoria(@Param('categoria') categoria: string): Promise<ProdutoDTO[]> {
-        return await this.produtoRepository.listarProdutosCategoria(categoria);
+        return await this.produtoRepository.buscarProdutoPorCategoria(categoria);
     }
 
     @ApiOperation({
