@@ -11,10 +11,6 @@ export class ConsultarProdutos implements IConsultarProdutoPorNome{
     ){}
 
     async buscarPodutoPorNome(nome: string){
-        const produtosSalvos = await this.produtoRepository.listarProdutos();
-        const produtosLista = produtosSalvos.map(
-
-        );
     }
 
     async buscarProduto(){

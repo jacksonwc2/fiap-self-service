@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ICadastrarProdutoUseCase } from "src/produto/core/application/services/cadastras-produto/cadastrar-produto.use-case";
 import { CadastrarProdutoDTO } from "src/produto/core/domain/cadastrarProdutoDTO";
 import { ProdutoRepositoryService } from "../driven/produto-repository/produto-repository.service";
+import { EditarProdutoDTO } from "src/produto/core/domain/editarProdutoDTO";
 
 @ApiTags('Produtos')
 @Controller('produtos')
@@ -34,5 +35,10 @@ export class ProdutoController{
     @Get('/:categoria')
     async buscarProdutoPorCategoria(@Param('categoria') categoria: string){
         return await this.produtoRepository.listarProdutosCategoria(categoria);
+    }
+
+    @Put('/:id')
+    async editarProduto(@Param('id') id: string, @Body() novosDados: EditarProdutoDTO){
+        const produtoAtualizado = await this.produtoRepository.editarProduto(id, novosDados);
     }
 }

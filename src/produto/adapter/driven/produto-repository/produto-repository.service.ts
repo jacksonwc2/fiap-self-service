@@ -2,6 +2,7 @@ import { Inject, Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { ProdutoEntity } from '../entity/produto.entity';
 import { IProdutoRepository } from "src/produto/core/application/repository/produto-repository.port";
+import { EditarProdutoDTO } from "src/produto/core/domain/editarProdutoDTO";
 
 @Injectable()
 export class ProdutoRepositoryService implements IProdutoRepository {
@@ -25,10 +26,14 @@ export class ProdutoRepositoryService implements IProdutoRepository {
     }
 
     async cadastrarProduto(produtoEntity: ProdutoEntity){
-        await this.produtoRepository.save(produtoEntity);
+        return await this.produtoRepository.save(produtoEntity);
     }
 
     async removerProduto(id: string){
         await this.produtoRepository.delete(id)
+    }
+
+    async editarProduto(id: string, novosDados: EditarProdutoDTO) {
+        await this.produtoRepository.update(id, novosDados);
     }
 }
