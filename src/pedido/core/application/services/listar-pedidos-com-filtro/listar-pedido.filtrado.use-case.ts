@@ -1,5 +1,5 @@
 import { ConsultarPedidoDTO } from "src/pedido/core/domain/consultarPedidoDTO";
 
-export interface IListarPedidoPorIdClienteUseCase {
-    listarPedidoPorIdCliente(idCliente: string): Promise<ConsultarPedidoDTO[]>;
+export abstract class IListarPedidoPorIdClienteUseCase {
+    abstract listarPedidoPorIdCliente(idCliente: string): Promise<ConsultarPedidoDTO[]>;
 }

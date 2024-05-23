@@ -1,5 +1,5 @@
 import { ConsultarPedidoDTO } from "src/pedido/core/domain/consultarPedidoDTO";
 
-export interface IListarPedidoUseCase {
-    listarPedido(): Promise<ConsultarPedidoDTO[]>;
+export abstract class IListarPedidoUseCase {
+    abstract listarPedido(): Promise<ConsultarPedidoDTO[]>;
 }
