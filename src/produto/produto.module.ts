@@ -7,6 +7,8 @@ import { DataSource } from 'typeorm';
 import { ProdutoController } from './adapter/driver/produto.controller';
 import { DatabaseModule } from 'src/database/database.module';
 import { ProdutoEntity } from './adapter/driven/entity/produto.entity';
+import { IConsultarProdutoPorCategoriaUseCase } from "./core/application/services/consultar-produto/consultar-produto-categoria.use-case";
+import { ConsultarProdutoPorCategoriaService } from "./core/application/services/consultar-produto/consultar-produto-categoria.service";
 
 @Module({
     providers: [
@@ -17,6 +19,10 @@ import { ProdutoEntity } from './adapter/driven/entity/produto.entity';
         {
           provide: IProdutoRepository,
           useClass: ProdutoRepositoryService,
+        },
+        {
+            provide: IConsultarProdutoPorCategoriaUseCase,
+            useClass: ConsultarProdutoPorCategoriaService
         },
         {
           provide: 'PRODUTO_REPOSITORY',

@@ -2,9 +2,10 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ICadastrarProdutoUseCase } from "src/produto/core/application/services/cadastras-produto/cadastrar-produto.use-case";
 import { CadastrarProdutoDTO } from "src/produto/core/domain/cadastrarProdutoDTO";
-import { ProdutoRepositoryService } from "../driven/produto-repository/produto-repository.service";
 import { EditarProdutoDTO } from "src/produto/core/domain/editarProdutoDTO";
 import { ProdutoDTO } from "../../core/domain/produtoDTO";
+import { IConsultarProdutoPorCategoriaUseCase } from "../../core/application/services/consultar-produto/consultar-produto-categoria.use-case";
+import { ProdutoRepositoryService } from "../driven/produto-repository/produto-repository.service";
 
 @ApiTags('Produtos')
 @Controller('produtos')
@@ -13,7 +14,7 @@ export class ProdutoController{
     constructor(
         private readonly cadastrarProdutoUSeCase: ICadastrarProdutoUseCase,
         private readonly produtoRepository: ProdutoRepositoryService,
-
+        private readonly consultarProdutoCategoriaUseCase: IConsultarProdutoPorCategoriaUseCase
     ){}
 
     @ApiOperation({
@@ -47,7 +48,7 @@ export class ProdutoController{
     @ApiResponse({ status: 400, description: 'Produto não encontrado.' })
     @Get('/:categoria')
     async buscarProdutoPorCategoria(@Param('categoria') categoria: string): Promise<ProdutoDTO[]> {
-        return await this.produtoRepository.buscarProdutoPorCategoria(categoria);
+        return await this.consultarProdutoCategoriaUseCase.buscarProdutoPorCategoria(categoria);
     }
 
     @ApiOperation({
