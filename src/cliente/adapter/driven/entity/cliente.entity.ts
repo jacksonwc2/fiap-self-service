@@ -1,16 +1,18 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Cliente {
-  @PrimaryGeneratedColumn()
-  id: number | null;
+export class ClienteEntity {
+
+  @PrimaryGeneratedColumn('uuid')
+  id: string | null;
 
   @Column({ length: 250 })
   nome: string;
 
-  @Column({ length: 100 })
+  @Column({ length: 250 })
   email: string;
 
   @Column()
   cpf: string;
+
 }

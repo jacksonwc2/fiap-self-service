@@ -7,12 +7,11 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ICadastrarClienteUseCase } from 'src/cliente/core/application/services/cadastrar-cliente/cadastrar-cliente.use-case';
-import { CadastrarClienteDTO } from 'src/cliente/core/domain/cadastrarClienteDTO';
 import { IConsultarClientePorCPFUseCase } from 'src/cliente/core/application/services/consultar-cliente/consultar-cliente-cpf.use-case';
-import { ClienteDTO } from 'src/cliente/core/domain/ClienteDTO';
+import { Cliente } from 'src/cliente/core/domain/Cliente';
 
 @ApiTags('Clientes')
-@Controller()
+@Controller('clientes')
 export class ClienteController {
   constructor(
     private readonly cadastrarClienteUSeCase: ICadastrarClienteUseCase,
@@ -26,12 +25,11 @@ export class ClienteController {
       'Para cadastrar um novo cliente é necessário informar os campos obrigatórios nome, e-mail e CPF(válido). Se o CPF ou e-mail informado já estiver cadastrado você será notificado.',
   })
   @ApiResponse({ status: 201, description: 'Cliente cadastrado com sucesso.' })
-  @ApiResponse({ status: 400, description: 'CPF já cadastrado.' })
-  @ApiResponse({ status: 400, description: 'E-mail já cadastrado.' })
+  @ApiResponse({ status: 400, description: 'Dados inválidos para o cadastro.' })
   async cadastrarCliente(
-    @Body() clienteDTO: CadastrarClienteDTO
-  ): Promise<ClienteDTO> {
-    return await this.cadastrarClienteUSeCase.cadastrarCliente(clienteDTO);
+    @Body() cliente: Cliente
+  ): Promise<Cliente> {
+    return await this.cadastrarClienteUSeCase.cadastrarCliente(cliente);
   }
 
   @Get(':cpf')
@@ -41,11 +39,10 @@ export class ClienteController {
       'Verifica se o CPF informado está cadastrado e retorna os dados do Cliente.',
   })
   @ApiResponse({ status: 200,  description: 'Cliente encontrado.' })
-  @ApiResponse({ status: 400, description: 'CPF inválido.' })
-  @ApiResponse({ status: 400, description: 'CPF não cadastrado. Verifique se o CPF informado está correto ou cadastre um novo Cliente com este CPF.' })
+  @ApiResponse({ status: 400, description: 'Cliente não encontrado.' })
   async buscarClientePorCPF(
     @Param('cpf') cpf: string
-  ): Promise<ClienteDTO> {
+  ): Promise<Cliente> {
     return await this.consultarClientePorCPFUseCase.buscarClientePorCPF(cpf);
   }
 }

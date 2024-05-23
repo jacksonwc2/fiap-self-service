@@ -2,27 +2,31 @@ version: '3.7'
 
 services:
 
-  fiap-self-service:
+  fiap-self-service-api:
     build:
       context: .
       dockerfile: Dockerfile
-    network_mode: 'host'
+    networks: 
+      - fiap-self-service-net
     restart: always
     depends_on:
-      - db-mysql
+      - fiap-self-service-db-mysql
     ports:
       - 3000:3000
     environment:
-      DB_HOST: fiap
-      DB_USER: fiap
-      DB_PASSWORD: fiap
+      DATABASE_HOST: fiap-self-service-db-mysql
+      DATABASE_PORT: 3306
+      DATABASE_USERNAME: fiap
+      DATABASE_PASSWORD: fiap
+      DATABASE_DATABASE: fiap
 
-  db-mysql:
+  fiap-self-service-db-mysql:
     image: mysql:8.0
     restart: always
-    network_mode: 'host'
+    networks: 
+      - fiap-self-service-net
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql_data_fiap_self_service:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
@@ -32,8 +36,8 @@ services:
       MYSQL_PASSWORD: fiap
 
 volumes:
-  mysql_data: {}
+  mysql_data_fiap_self_service: {}
 
 networks:
-  fiap-net:
+  fiap-self-service-net:
     driver: bridge

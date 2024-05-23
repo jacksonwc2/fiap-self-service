@@ -1,21 +1,21 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty } from "class-validator";
+import { IsNotEmpty, IsOptional } from "class-validator";
 
-export class CadastrarProdutoDTO{
+export class EditarProdutoDTO{
 
-    @IsNotEmpty()
     @ApiProperty()
+    @IsOptional()
     nome: string;
 
-    @IsNotEmpty()
     @ApiProperty()
+    @IsOptional()
     descricao: string;
 
-    @IsNotEmpty()
     @ApiProperty()
+    @IsOptional()
     categoria: string;
 
-    @IsNotEmpty()
     @ApiProperty()
+    @IsOptional()
     valor: number;
 }

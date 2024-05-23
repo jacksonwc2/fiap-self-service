@@ -4,7 +4,7 @@ import { ICadastrarClienteUseCase } from './core/application/services/cadastrar-
 import { ConsultarClientePorCPFService } from './core/application/services/consultar-cliente/consultar-cliente-cpf.service';
 import { ClienteRepositoryService } from './adapter/driven/cliente-repository/cliente-repository.service';
 import { DataSource } from 'typeorm';
-import { Cliente } from './adapter/driven/entity/cliente.entity';
+import { ClienteEntity } from './adapter/driven/entity/cliente.entity';
 import { IClienteRepository } from './core/application/repository/cliente-repository.port';
 import { DatabaseModule } from 'src/database/database.module';
 import { ClienteController } from './adapter/driver/cliente.controller';
@@ -26,7 +26,7 @@ import { IConsultarClientePorCPFUseCase } from './core/application/services/cons
     },
     {
       provide: 'CLIENTE_REPOSITORY',
-      useFactory: (dataSource: DataSource) => dataSource.getRepository(Cliente),
+      useFactory: (dataSource: DataSource) => dataSource.getRepository(ClienteEntity),
       inject: ['DATA_SOURCE'],
     },
   ],

@@ -3,9 +3,18 @@ import { ClienteModule } from './cliente/cliente.module';
 import { ProdutoModule } from './produto/produto.module';
 import { PedidoModule } from './pedido/pedido.module';
 import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [ClienteModule, ProdutoModule, PedidoModule, DatabaseModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    ClienteModule,
+    ProdutoModule,
+    PedidoModule,
+    DatabaseModule,
+  ],
   controllers: [],
   providers: [],
 })

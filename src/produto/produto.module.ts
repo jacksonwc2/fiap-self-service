@@ -23,6 +23,7 @@ import { ProdutoEntity } from './adapter/driven/entity/produto.entity';
           useFactory: (dataSource: DataSource) => dataSource.getRepository(ProdutoEntity),
           inject: ['DATA_SOURCE'],
         },
+        ProdutoRepositoryService,
       ],
       controllers: [ProdutoController],
       imports: [DatabaseModule],
