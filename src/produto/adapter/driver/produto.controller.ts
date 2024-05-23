@@ -4,6 +4,7 @@ import { ICadastrarProdutoUseCase } from "src/produto/core/application/services/
 import { CadastrarProdutoDTO } from "src/produto/core/domain/cadastrarProdutoDTO";
 import { ProdutoRepositoryService } from "../driven/produto-repository/produto-repository.service";
 import { EditarProdutoDTO } from "src/produto/core/domain/editarProdutoDTO";
+import { ProdutoDTO } from "../../core/domain/produtoDTO";
 
 @ApiTags('Produtos')
 @Controller('produtos')
@@ -33,7 +34,12 @@ export class ProdutoController{
     }
 
     @Get('/:categoria')
-    async buscarProdutoPorCategoria(@Param('categoria') categoria: string){
+    @ApiOperation({
+        summary: 'Buscar Produtos por Categoria',
+        description: 'Lista todos os Produtos de determinada Categoria.'
+    })
+    @ApiResponse({status: 200, description: 'Produtos listados com sucesso.'})
+    async buscarProdutoPorCategoria(@Param('categoria') categoria: string): Promise<ProdutoDTO[]> {
         return await this.produtoRepository.listarProdutosCategoria(categoria);
     }
 
