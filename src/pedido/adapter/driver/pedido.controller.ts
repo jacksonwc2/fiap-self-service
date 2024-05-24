@@ -16,6 +16,8 @@ import { IListarPedidoUseCase } from 'src/pedido/core/application/services/lista
 import { IListarPedidoPorIdClienteUseCase } from 'src/pedido/core/application/services/listar-pedidos-com-filtro/listar-pedido.filtrado.use-case';
 import { IAtualizarStatusPedidoUseCase } from 'src/pedido/core/application/services/atualizar-status-pedido/atualizar-status-pedido.use-case';
 import {AtualizarPedidoDTO} from "../../core/domain/atualizarStatusPedidoDTO";
+import { PedidoDTO } from 'src/pedido/core/domain/pedidoDTO';
+import { ProdutoDTO } from 'src/produto/core/domain/produtoDTO';
 
 @ApiTags('Pedidos')
 @Controller('Pedido')
@@ -37,12 +39,23 @@ export class PedidoController {
     @ApiResponse({ status: 201, description: 'Pedido cadastrado com sucesso.'})
     @ApiResponse({ status: 400, description: 'Combo obrigatório.'})
     async cadastrarPedido(
-        @Body() pedidoDTO: CadastrarPedidoDTO
-    ): Promise<Pedido> {
+        @Body() pedidoDTO: PedidoDTO
+    ): Promise<PedidoDTO> {
         return await this.cadastrarPedidoUseCase.cadastrarPedido(pedidoDTO);
     }
 
-    @Get(':idPedido')
+    @Get('/listarPedidos')
+    @ApiOperation({
+        summary: '',
+        description: '',
+    })
+    @ApiResponse({ status: 200, description: 'Pedidos encontrados.'})
+    async listarPedidos(
+    ): Promise<PedidoDTO[]> {
+        return await this.listarPedidoUseCase.listarPedido();
+    }
+
+    @Get('/:idPedido')
     @ApiOperation({
         summary: '',
         description: '',
@@ -55,18 +68,7 @@ export class PedidoController {
         return await this.consultarPedidoPorIdUseCase.consultarPedidoPorId(idPedido);
     }
 
-    @Get('listarPedidos')
-    @ApiOperation({
-        summary: '',
-        description: '',
-    })
-    @ApiResponse({ status: 200, description: 'Pedidos encontrados.'})
-    async listarPedidos(
-    ): Promise<ConsultarPedidoDTO[]> {
-        return await this.listarPedidoUseCase.listarPedido();
-    }
-
-    @Get('listarPedidos/:idCliente')
+    @Get('/listarPedidos/:idCliente')
     @ApiOperation({
         summary: '',
         description: '',
@@ -75,11 +77,11 @@ export class PedidoController {
     @ApiResponse({ status: 200, description: 'Nenhum pedido encontrado para esse cliente.'})
     async listarPedidoPorIdCliente(
         @Param('idCliente') idCliente: string
-    ): Promise<ConsultarPedidoDTO[]> {
+    ): Promise<PedidoDTO[]> {
         return await this.listarPedidoPorIdClienteUseCase.listarPedidoPorIdCliente(idCliente);
     }
 
-    @Patch()
+    @Patch('/:id')
     @ApiOperation({
         summary: 'Atualizar Status de Pedido',
         description:
@@ -88,8 +90,8 @@ export class PedidoController {
     @ApiResponse({ status: 201, description: 'Pedido cadastrado com sucesso.'})
     @ApiResponse({ status: 400, description: 'Combo obrigatório.'})
     async atualizarStatusPedido(
-        @Body() atualizarStatusPedido: AtualizarPedidoDTO
-    ): Promise<Pedido> {
-        return await this.atualizarStatusPedidoUseCase.atualizarStatusPedido(atualizarStatusPedido);
+        @Param('id') id: string, @Body() atualizarStatusPedido: PedidoDTO
+    ): Promise<PedidoDTO> {
+        return await this.atualizarStatusPedidoUseCase.atualizarStatusPedido(id, atualizarStatusPedido);
     }
 }

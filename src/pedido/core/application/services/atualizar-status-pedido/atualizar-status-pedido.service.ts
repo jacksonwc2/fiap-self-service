@@ -1,12 +1,11 @@
-import { Pedido } from "src/pedido/adapter/driven/entity/pedido";
 import { IPedidoRepository } from "../../repository/pedido-repository.port";
 import { IAtualizarStatusPedidoUseCase } from "./atualizar-status-pedido.use-case";
-import {AtualizarPedidoDTO} from "../../../domain/atualizarStatusPedidoDTO";
+import { PedidoDTO } from "src/pedido/core/domain/pedidoDTO";
 
 export class AtualizarStatusPedidoUseCase implements IAtualizarStatusPedidoUseCase {
     constructor(private readonly pedidoRepository: IPedidoRepository) {}
 
-    async atualizarStatusPedido(atualizarStatusPedidoDTO: AtualizarPedidoDTO): Promise<Pedido> {
-        return await this.pedidoRepository.atualizarStatusPedido(atualizarStatusPedidoDTO);
+    async atualizarStatusPedido(id: string, atualizarStatusPedidoDTO: PedidoDTO): Promise<PedidoDTO> {
+        return await this.pedidoRepository.atualizarStatusPedido(id, atualizarStatusPedidoDTO);
     }
 }

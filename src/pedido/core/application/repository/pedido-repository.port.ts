@@ -1,11 +1,9 @@
-import { Pedido } from "src/pedido/adapter/driven/entity/pedido";
-import { CadastrarPedidoDTO } from "../../domain/cadastrarPedidoDTO";
-import {AtualizarPedidoDTO} from "../../domain/atualizarStatusPedidoDTO";
+import { PedidoDTO } from "../../domain/pedidoDTO";
 
 export abstract class IPedidoRepository {
-    abstract salvarPedido(pedido: CadastrarPedidoDTO): Promise<Pedido>;
-    abstract listarPorIdCliente(idCliente: string): Promise<Pedido[]>;
-    abstract listarPedidos(): Promise<Pedido[]>;
-    abstract buscarPorIdPedido(idPedido: string): Promise<Pedido>;
-    abstract atualizarStatusPedido(atualizarStatusPedidoDTO: AtualizarPedidoDTO): Promise<Pedido>;
+    abstract salvarPedido(pedido: PedidoDTO): Promise<PedidoDTO>;
+    abstract listarPorIdCliente(idCliente: string): Promise<PedidoDTO[]>;
+    abstract listarPedidos(): Promise<PedidoDTO[]>;
+    abstract buscarPorIdPedido(idPedido: string): Promise<PedidoDTO>;
+    abstract atualizarStatusPedido(id: string, atualizarStatusPedidoDTO: PedidoDTO);
 }

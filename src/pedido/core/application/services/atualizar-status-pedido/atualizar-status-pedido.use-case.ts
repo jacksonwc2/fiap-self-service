@@ -1,6 +1,6 @@
-import { Pedido } from "src/pedido/adapter/driven/entity/pedido";
+import { PedidoDTO } from "src/pedido/core/domain/pedidoDTO";
 import {AtualizarPedidoDTO} from "../../../domain/atualizarStatusPedidoDTO";
 
 export abstract class IAtualizarStatusPedidoUseCase {
-    abstract atualizarStatusPedido(atualizarStatusPedidoDTO: AtualizarPedidoDTO): Promise<Pedido>;
+    abstract atualizarStatusPedido(id: string, atualizarStatusPedidoDTO: PedidoDTO): Promise<PedidoDTO>;
 }

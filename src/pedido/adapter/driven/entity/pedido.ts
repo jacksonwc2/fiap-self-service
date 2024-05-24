@@ -2,7 +2,8 @@ import { OrderStatus } from './enum/orderStatus.enum';
 import { ItemPedido } from './itemPedido';
 
 export class Pedido {
-    constructor(idPagamento: string, idCliente: string, valorTotal: number, dataCriacao: Date, status: OrderStatus, combo: ItemPedido[] = []) {
+    constructor(id:string, idPagamento: string, idCliente: string, valorTotal: number, dataCriacao: Date, status: OrderStatus, combo: ItemPedido[] = []) {
+        this.id = id;
         this.idPagamento = idPagamento;
         this.idCliente = idCliente;
         this.valorTotal = valorTotal;

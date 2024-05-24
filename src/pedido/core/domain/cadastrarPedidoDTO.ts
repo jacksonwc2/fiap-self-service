@@ -4,6 +4,8 @@ import { OrderStatus } from "src/pedido/adapter/driven/entity/enum/orderStatus.e
 
 export class CadastrarPedidoDTO {
     
+    id: string | null;
+
     @IsNotEmpty()
     @ApiProperty()
     idPagamento: string;
@@ -31,7 +33,7 @@ export class CadastrarPedidoDTO {
 
 export class CadastrarItemPedidoDTO {
 
-    id: string;
+    id: string | null;
 
     @IsNotEmpty()
     @ApiProperty()

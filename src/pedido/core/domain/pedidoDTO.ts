@@ -3,8 +3,7 @@ import { OrderStatus } from "src/pedido/adapter/driven/entity/enum/orderStatus.e
 
 export class PedidoDTO {
     
-    @ApiProperty()
-    idPedido: string;
+    id: string | null;
 
     @ApiProperty()
     idPagamento: string;
@@ -21,11 +20,13 @@ export class PedidoDTO {
     @ApiProperty()
     status: OrderStatus;
 
-    @ApiProperty()
+    @ApiProperty({ type: () => ItemPedidoDTO, isArray: true })
     combo: ItemPedidoDTO[];
 }
 
 export class ItemPedidoDTO {
+
+    id: string | null;
 
     @ApiProperty()
     idPedido: string;

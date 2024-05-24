@@ -5,7 +5,7 @@ import { ItemPedidoEntity } from "./itemPedido.entity";
 export class BaseMapper {
     static toEntity(cadastrarPedidoDTO: CadastrarPedidoDTO): PedidoEntity {
         const pedidoEntity = new PedidoEntity();
-        pedidoEntity.id = null;
+        pedidoEntity.id = cadastrarPedidoDTO.id;
         pedidoEntity.idCliente = cadastrarPedidoDTO.idCliente;
         pedidoEntity.valorTotal = cadastrarPedidoDTO.valorTotal;
         pedidoEntity.dataCriacao = cadastrarPedidoDTO.dataCriacao;
@@ -16,6 +16,7 @@ export class BaseMapper {
 
     static toItemPedidoEntity(cadastrarItemPedido: CadastrarItemPedidoDTO): ItemPedidoEntity {
         const itemPedidoEntity = new ItemPedidoEntity();
+        itemPedidoEntity.id = cadastrarItemPedido.id;
         itemPedidoEntity.idPedido = cadastrarItemPedido.idPedido;
         itemPedidoEntity.idProduto = cadastrarItemPedido.idProduto;
         itemPedidoEntity.quantidade = cadastrarItemPedido.quantidade;

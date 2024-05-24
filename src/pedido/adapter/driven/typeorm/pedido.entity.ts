@@ -4,6 +4,7 @@ import { OrderStatus } from '../entity/enum/orderStatus.enum';
 
 @Entity()
 export class PedidoEntity {
+
     @PrimaryGeneratedColumn('uuid')
     id: string | null;
 
@@ -17,7 +18,7 @@ export class PedidoEntity {
     valorTotal: number;
 
     @CreateDateColumn()
-    dataCriacao: Date
+    dataCriacao: Date;
 
     @Column({
         type: 'enum',
@@ -26,6 +27,6 @@ export class PedidoEntity {
       })
       status: OrderStatus;
 
-    @OneToMany(() => ItemPedidoEntity, itemPedido =>  itemPedido.idPedido, { cascade: true })
+    @OneToMany(() => ItemPedidoEntity, itemPedido =>  itemPedido.idPedido)
     combo: ItemPedidoEntity[];
 }
