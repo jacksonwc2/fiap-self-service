@@ -4,7 +4,7 @@ import { ConsultarPedidoDTO } from "src/pedido/core/domain/consultarPedidoDTO";
 import { IPedidoRepository } from "../../repository/pedido-repository.port";
 
 @Injectable()
-export class listarPedidoPorIdClienteUseCase implements IListarPedidoPorIdClienteUseCase {
+export class ListarPedidoPorIdClienteUseCase implements IListarPedidoPorIdClienteUseCase {
     constructor(private readonly pedidoRepository: IPedidoRepository) {}
 
     async listarPedidoPorIdCliente(idCliente: string): Promise<ConsultarPedidoDTO[]> {

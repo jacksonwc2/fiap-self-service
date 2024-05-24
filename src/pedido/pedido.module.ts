@@ -1,7 +1,5 @@
 import { Module } from "@nestjs/common";
 import { PedidoEntity } from "./adapter/driven/typeorm/pedido.entity";
-import { ItemPedidoEntity } from "./adapter/driven/typeorm/itemPedido.entity";
-import { TypeOrmModule } from "@nestjs/typeorm";
 import { PedidoRepository } from "./adapter/driven/pedido-repository/pedido-repository";
 import { DataSource } from "typeorm";
 import { CadastrarPedidoUseCase } from "./core/application/services/cadastrar-pedido/cadastrar-pedido.service";
@@ -10,37 +8,59 @@ import { PedidoController } from "./adapter/driver/pedido.controller";
 import { ConsultarPedidoPorIdUseCase } from "./core/application/services/consultar-pedido/consultar-pedido.service";
 import { ListarPedidoUseCase } from "./core/application/services/listar-pedidos/listar-pedido.service";
 import { AtualizarStatusPedidoUseCase } from "./core/application/services/atualizar-status-pedido/atualizar-status-pedido.service";
+import {IPedidoRepository} from "./core/application/repository/pedido-repository.port";
+import {ICadastrarPedidoUseCase} from "./core/application/services/cadastrar-pedido/cadastrar-pedido.use-case";
+import {IConsultarPedidoPorIdUseCase} from "./core/application/services/consultar-pedido/consultar-pedido.use-case";
+import {IListarPedidoUseCase} from "./core/application/services/listar-pedidos/listar-pedido.use-case";
+import {
+    IAtualizarStatusPedidoUseCase
+} from "./core/application/services/atualizar-status-pedido/atualizar-status-pedido.use-case";
+import {ItemPedidoEntity} from "./adapter/driven/typeorm/itemPedido.entity";
+import {
+    IListarPedidoPorIdClienteUseCase
+} from "./core/application/services/listar-pedidos-com-filtro/listar-pedido.filtrado.use-case";
+import {
+    ListarPedidoPorIdClienteUseCase
+} from "./core/application/services/listar-pedidos-com-filtro/listar-pedido-filtrado.service";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([PedidoEntity, ItemPedidoEntity]), DatabaseModule],
     providers: [
         {
-            provide: 'IPedidoRepository',
+            provide: IPedidoRepository,
             useClass: PedidoRepository,
         },
         {
-            provide: 'ICadastrarPedidoService',
+            provide: ICadastrarPedidoUseCase,
             useClass: CadastrarPedidoUseCase,
         },
         {
-            provide: 'IConsultarPedidoPorIdUseCase',
+            provide: IConsultarPedidoPorIdUseCase,
             useClass: ConsultarPedidoPorIdUseCase
         },
         {
-            provide: 'IListarPedidoUseCase',
+            provide: IListarPedidoUseCase,
             useClass: ListarPedidoUseCase
         },
         {
-            provide: 'IAtualizarStatusPedidoUseCase',
+            provide: IAtualizarStatusPedidoUseCase,
             useClass: AtualizarStatusPedidoUseCase
+        },
+        {
+            provide: IListarPedidoPorIdClienteUseCase,
+            useClass: ListarPedidoPorIdClienteUseCase
         },
         {
             provide: 'PEDIDO_REPOSITORY',
             useFactory: (datasource: DataSource) => datasource.getRepository(PedidoEntity),
             inject: ['DATA_SOURCE'],
+        },
+        {
+            provide: 'ITEM_PEDIDO_REPOSITORY',
+            useFactory: (datasource: DataSource) => datasource.getRepository(ItemPedidoEntity),
+            inject: ['DATA_SOURCE'],
         }
     ],
     controllers: [PedidoController],
-    exports: ['CadastrarPedidoUseCase', 'ConsultarPedidoPorIdUseCase', 'ListarPedidoUseCase', 'AtualizarStatusPedidoUseCase']
+    imports: [DatabaseModule]
 })
 export class PedidoModule {}

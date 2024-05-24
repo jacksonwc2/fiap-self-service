@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDecimal, IsNotEmpty, IsNumber, IsUUID, isNotEmpty, isUUID } from "class-validator";
+import { IsDecimal, IsNotEmpty, IsNumber } from "class-validator";
 import { OrderStatus } from "src/pedido/adapter/driven/entity/enum/orderStatus.enum";
 
 export class CadastrarPedidoDTO {
@@ -30,6 +30,8 @@ export class CadastrarPedidoDTO {
 }
 
 export class CadastrarItemPedidoDTO {
+
+    id: string;
 
     @IsNotEmpty()
     @ApiProperty()

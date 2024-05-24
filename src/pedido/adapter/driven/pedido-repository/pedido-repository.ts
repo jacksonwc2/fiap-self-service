@@ -1,5 +1,4 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from '@nestjs/typeorm';
+import {Inject, Injectable} from "@nestjs/common";
 import { Repository } from 'typeorm';
 import { PedidoEntity } from "src/pedido/adapter/driven/typeorm/pedido.entity";
 import { IPedidoRepository } from "src/pedido/core/application/repository/pedido-repository.port";
@@ -8,13 +7,14 @@ import { TypeOrmPedidoMapper } from "src/pedido/adapter/driven/typeorm/typeorm-p
 import { ItemPedidoEntity } from "../typeorm/itemPedido.entity";
 import { CadastrarPedidoDTO } from "src/pedido/core/domain/cadastrarPedidoDTO";
 import { BaseMapper } from "../typeorm/base-mapper";
-import { AtualizarStatusPedidoDTO } from "src/pedido/core/domain/atualizarPedidoDTO";
+import {AtualizarPedidoDTO} from "../../../core/domain/atualizarStatusPedidoDTO";
 
 @Injectable()
 export class PedidoRepository implements IPedidoRepository {
     constructor(
-        @InjectRepository(PedidoEntity)
+        @Inject('PEDIDO_REPOSITORY')
         private readonly pedidoRepo: Repository<PedidoEntity>,
+        @Inject('ITEM_PEDIDO_REPOSITORY')
         private readonly itemPedidoRepo: Repository<ItemPedidoEntity>
     ) {}
 
@@ -47,7 +47,7 @@ export class PedidoRepository implements IPedidoRepository {
         return TypeOrmPedidoMapper.toDomain(pedidoEntity);
     }
 
-    async atualizarStatusPedido(atualizarStatusPedidoDTO: AtualizarStatusPedidoDTO): Promise<Pedido> {
+    async atualizarStatusPedido(atualizarStatusPedidoDTO: AtualizarPedidoDTO): Promise<Pedido> {
         const pedidoEntity = await this.pedidoRepo.findOne({ where: { id: atualizarStatusPedidoDTO.idPedido } });
 
         pedidoEntity.status = atualizarStatusPedidoDTO.status;

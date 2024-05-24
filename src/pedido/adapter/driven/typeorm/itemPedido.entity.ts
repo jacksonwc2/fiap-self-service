@@ -1,7 +1,10 @@
-import { Entity, Column } from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class ItemPedidoEntity {
+    @PrimaryGeneratedColumn('uuid')
+    id: string | null;
+
     @Column()
     idPedido: string;
 

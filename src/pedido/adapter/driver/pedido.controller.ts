@@ -14,8 +14,8 @@ import { IConsultarPedidoPorIdUseCase } from 'src/pedido/core/application/servic
 import { ConsultarPedidoDTO } from 'src/pedido/core/domain/consultarPedidoDTO';
 import { IListarPedidoUseCase } from 'src/pedido/core/application/services/listar-pedidos/listar-pedido.use-case';
 import { IListarPedidoPorIdClienteUseCase } from 'src/pedido/core/application/services/listar-pedidos-com-filtro/listar-pedido.filtrado.use-case';
-import { AtualizarStatusPedidoDTO } from 'src/pedido/core/domain/atualizarPedidoDTO';
 import { IAtualizarStatusPedidoUseCase } from 'src/pedido/core/application/services/atualizar-status-pedido/atualizar-status-pedido.use-case';
+import {AtualizarPedidoDTO} from "../../core/domain/atualizarStatusPedidoDTO";
 
 @ApiTags('Pedidos')
 @Controller('Pedido')
@@ -88,7 +88,7 @@ export class PedidoController {
     @ApiResponse({ status: 201, description: 'Pedido cadastrado com sucesso.'})
     @ApiResponse({ status: 400, description: 'Combo obrigatório.'})
     async atualizarStatusPedido(
-        @Body() atualizarStatusPedido: AtualizarStatusPedidoDTO
+        @Body() atualizarStatusPedido: AtualizarPedidoDTO
     ): Promise<Pedido> {
         return await this.atualizarStatusPedidoUseCase.atualizarStatusPedido(atualizarStatusPedido);
     }

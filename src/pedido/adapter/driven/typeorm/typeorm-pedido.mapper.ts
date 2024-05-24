@@ -17,6 +17,7 @@ export class TypeOrmPedidoMapper {
 
     static toItemPedidoEntity(itemPedido: ItemPedido): ItemPedidoEntity {
         const itemPedidoEntity = new ItemPedidoEntity();
+        itemPedidoEntity.id = itemPedido.id;
         itemPedidoEntity.idPedido = itemPedido.idPedido;
         itemPedidoEntity.idProduto = itemPedido.idProduto;
         itemPedidoEntity.quantidade = itemPedido.quantidade;
@@ -37,6 +38,7 @@ export class TypeOrmPedidoMapper {
 
     static toDomainItemPedido(itemPedidoEntity: ItemPedidoEntity): ItemPedido {
         return new ItemPedido(
+            itemPedidoEntity.id,
             itemPedidoEntity.idPedido,
             itemPedidoEntity.idProduto,
             itemPedidoEntity.quantidade,
