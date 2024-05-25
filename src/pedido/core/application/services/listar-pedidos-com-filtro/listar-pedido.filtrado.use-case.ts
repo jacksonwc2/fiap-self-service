@@ -1,5 +1,5 @@
-import { PedidoDTO } from "src/pedido/core/domain/pedidoDTO";
+import { Pedido } from "src/pedido/core/domain/pedido";
 
 export abstract class IListarPedidoPorIdClienteUseCase {
-    abstract listarPedidoPorIdCliente(idCliente: string): Promise<PedidoDTO[]>;
+    abstract listarPedidoPorIdCliente(idCliente: string): Promise<Pedido[]>;
 }

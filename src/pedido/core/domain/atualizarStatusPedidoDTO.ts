@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { OrderStatus } from "src/pedido/adapter/driven/entity/enum/orderStatus.enum";
+import { PedidoStatus } from "src/pedido/adapter/driven/entity/enum/pedidoStatus.enum";
 
 export class AtualizarPedidoDTO {
     @ApiProperty()
-    status: OrderStatus;
+    status: PedidoStatus;
 }

@@ -1,6 +1,6 @@
+import { PedidoStatus } from './enum/pedidoStatus.enum';
+import { ItemPedidoEntity } from '../entity/itemPedido.entity';
 import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { ItemPedidoEntity } from './itemPedido.entity';
-import { OrderStatus } from '../entity/enum/orderStatus.enum';
 
 @Entity()
 export class PedidoEntity {
@@ -22,11 +22,11 @@ export class PedidoEntity {
 
     @Column({
         type: 'enum',
-        enum: OrderStatus,
-        default: OrderStatus.PENDING,
+        enum: PedidoStatus,
+        default: PedidoStatus.PENDING,
       })
-      status: OrderStatus;
+      status: PedidoStatus;
 
     @OneToMany(() => ItemPedidoEntity, itemPedido =>  itemPedido.idPedido)
-    combo: ItemPedidoEntity[];
+    itens: ItemPedidoEntity[];
 }

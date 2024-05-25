@@ -1,7 +1,7 @@
-import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
-import { IPedidoRepository } from "../../repository/pedido-repository.port";
+import { Pedido } from "src/pedido/core/domain/pedido";
 import { IConsultarPedidoPorIdUseCase } from "./consultar-pedido.use-case";
-import { Pedido } from "src/pedido/adapter/driven/entity/pedido";
+import { IPedidoRepository } from "../../repository/pedido-repository.port";
+import { HttpException, HttpStatus, Inject, Injectable } from "@nestjs/common";
 
 @Injectable()
 export class ConsultarPedidoPorIdUseCase implements IConsultarPedidoPorIdUseCase {

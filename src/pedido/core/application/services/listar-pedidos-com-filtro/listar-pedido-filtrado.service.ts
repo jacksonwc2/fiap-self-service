@@ -1,13 +1,13 @@
+import { Pedido } from "src/pedido/core/domain/pedido";
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { IListarPedidoPorIdClienteUseCase } from "./listar-pedido.filtrado.use-case";
 import { IPedidoRepository } from "../../repository/pedido-repository.port";
-import { PedidoDTO } from "src/pedido/core/domain/pedidoDTO";
+import { IListarPedidoPorIdClienteUseCase } from "./listar-pedido.filtrado.use-case";
 
 @Injectable()
 export class ListarPedidoPorIdClienteUseCase implements IListarPedidoPorIdClienteUseCase {
     constructor(private readonly pedidoRepository: IPedidoRepository) {}
 
-    async listarPedidoPorIdCliente(idCliente: string): Promise<PedidoDTO[]> {
+    async listarPedidoPorIdCliente(idCliente: string): Promise<Pedido[]> {
         const pedidos = await this.pedidoRepository.listarPorIdCliente(idCliente);
 
         if(!pedidos) {

@@ -1,8 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { OrderStatus } from "src/pedido/adapter/driven/entity/enum/orderStatus.enum";
+import { PedidoStatus } from "src/pedido/adapter/driven/entity/enum/pedidoStatus.enum";
 
-export class ConsultarPedidoDTO {
+export class Pedido {
     
+    id: string | null;
+
     @ApiProperty()
     idPagamento: string;
 
@@ -16,13 +18,16 @@ export class ConsultarPedidoDTO {
     dataCriacao: Date;
 
     @ApiProperty()
-    status: OrderStatus;
+    status: PedidoStatus;
 
-    @ApiProperty()
-    combo: ConsultarItemPedidoDTO[];
+    
+    @ApiProperty({ type: () => ItemPedido, isArray: true })
+    itens: ItemPedido[];
 }
 
-export class ConsultarItemPedidoDTO {
+export class ItemPedido {
+
+    id: string | null;
 
     @ApiProperty()
     idPedido: string;

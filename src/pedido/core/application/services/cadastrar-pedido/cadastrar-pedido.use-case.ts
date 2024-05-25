@@ -1,7 +1,5 @@
-import { Pedido } from 'src/pedido/adapter/driven/entity/pedido';
-import { CadastrarPedidoDTO } from 'src/pedido/core/domain/cadastrarPedidoDTO';
-import { PedidoDTO } from 'src/pedido/core/domain/pedidoDTO';
+import { Pedido } from 'src/pedido/core/domain/pedido';
 
 export abstract class ICadastrarPedidoUseCase {
-    abstract cadastrarPedido(pedidoDTO: PedidoDTO): Promise<PedidoDTO>;
+    abstract cadastrarPedido(pedidoDTO: Pedido): Promise<Pedido>;
 }

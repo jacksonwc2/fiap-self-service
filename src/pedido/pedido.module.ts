@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { PedidoEntity } from "./adapter/driven/typeorm/pedido.entity";
+import { PedidoEntity } from "./adapter/driven/entity/pedido.entity";
 import { PedidoRepository } from "./adapter/driven/pedido-repository/pedido-repository";
 import { DataSource } from "typeorm";
 import { CadastrarPedidoUseCase } from "./core/application/services/cadastrar-pedido/cadastrar-pedido.service";
@@ -15,7 +15,7 @@ import {IListarPedidoUseCase} from "./core/application/services/listar-pedidos/l
 import {
     IAtualizarStatusPedidoUseCase
 } from "./core/application/services/atualizar-status-pedido/atualizar-status-pedido.use-case";
-import {ItemPedidoEntity} from "./adapter/driven/typeorm/itemPedido.entity";
+import {ItemPedidoEntity} from "./adapter/driven/entity/itemPedido.entity";
 import {
     IListarPedidoPorIdClienteUseCase
 } from "./core/application/services/listar-pedidos-com-filtro/listar-pedido.filtrado.use-case";

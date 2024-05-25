@@ -1,9 +1,10 @@
-import {Inject, Injectable} from "@nestjs/common";
 import { Repository } from 'typeorm';
-import { PedidoEntity } from "src/pedido/adapter/driven/typeorm/pedido.entity";
+import { Inject, Injectable } from "@nestjs/common";
+import { Pedido } from "src/pedido/core/domain/pedido";
+import { PedidoEntity } from "src/pedido/adapter/driven/entity/pedido.entity";
+import { AtualizarPedidoDTO } from "src/pedido/core/domain/atualizarStatusPedidoDTO";
+import { ItemPedidoEntity } from "src/pedido/adapter/driven/entity/itemPedido.entity";
 import { IPedidoRepository } from "src/pedido/core/application/repository/pedido-repository.port";
-import { ItemPedidoEntity } from "../typeorm/itemPedido.entity";
-import { PedidoDTO } from "src/pedido/core/domain/pedidoDTO";
 
 @Injectable()
 export class PedidoRepository implements IPedidoRepository {
@@ -14,11 +15,11 @@ export class PedidoRepository implements IPedidoRepository {
         private readonly itemPedidoRepo: Repository<ItemPedidoEntity>
     ) {}
 
-    async salvarPedido(cadastrarPedido: PedidoDTO): Promise<PedidoDTO> {
+    async salvarPedido(cadastrarPedido: Pedido): Promise<Pedido> {
         const pedidoEntity: PedidoEntity = cadastrarPedido;
         await this.pedidoRepo.save(pedidoEntity);
 
-        pedidoEntity.combo.forEach(element => {
+        pedidoEntity.itens.forEach(element => {
             element.idPedido = pedidoEntity.id;
             const itemPedido: ItemPedidoEntity = element
             this.itemPedidoRepo.save(itemPedido); 
@@ -27,24 +28,26 @@ export class PedidoRepository implements IPedidoRepository {
         return pedidoEntity;
     }
 
-    async listarPorIdCliente(idCliente: string): Promise<PedidoDTO[]> {
-        return await this.pedidoRepo.find({ where: { idCliente }});
+    async listarPorIdCliente(idCliente: string): Promise<Pedido[]> {
+        return await this.pedidoRepo.find({ where: { idCliente }, relations: ["itens"]});
     }
 
-    async listarPedidos(): Promise<PedidoDTO[]> {
-        return await this.pedidoRepo.find();
+    async listarPedidos(): Promise<Pedido[]> {
+        return await this.pedidoRepo.find({relations: ["itens"]});
     }
 
-    async buscarPorIdPedido(id: string): Promise<PedidoDTO | null> {
-        const pedidoEntity = await this.pedidoRepo.findOne({ where: { id }})
+    async buscarPorIdPedido(id: string): Promise<Pedido | null> {
+        const pedidoEntity = await this.pedidoRepo.findOne({ where: { id }, relations: ["itens"]})
         if(!pedidoEntity) {
             return null;
         }
         return pedidoEntity;
     }
 
-    async atualizarStatusPedido(id: string, atualizarStatusPedidoDTO: PedidoDTO): Promise<PedidoDTO> {
-        await this.pedidoRepo.update(id, atualizarStatusPedidoDTO);
-        return atualizarStatusPedidoDTO;
+    async atualizarStatusPedido(id: string, atualizarStatusPedidoDTO: AtualizarPedidoDTO): Promise<Pedido> {
+        const pedidoEntity = await this.pedidoRepo.findOne({ where: { id }, relations: ["itens"]})
+        pedidoEntity.status = atualizarStatusPedidoDTO.status;
+        await this.pedidoRepo.update(id, pedidoEntity);
+        return pedidoEntity;
     }
 }
