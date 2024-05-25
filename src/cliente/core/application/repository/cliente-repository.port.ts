@@ -1,4 +1,4 @@
-import { Cliente } from '../../domain/Cliente';
+import { Cliente } from '../../domain/cliente';
 
 export abstract class IClienteRepository {
   abstract salvarCliente(cliente: Cliente): Promise<Cliente>;

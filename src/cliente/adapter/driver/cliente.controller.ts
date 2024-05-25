@@ -8,7 +8,7 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ICadastrarClienteUseCase } from 'src/cliente/core/application/services/cadastrar-cliente/cadastrar-cliente.use-case';
 import { IConsultarClientePorCPFUseCase } from 'src/cliente/core/application/services/consultar-cliente/consultar-cliente-cpf.use-case';
-import { Cliente } from 'src/cliente/core/domain/Cliente';
+import { Cliente } from 'src/cliente/core/domain/cliente';
 
 @ApiTags('Clientes')
 @Controller('clientes')

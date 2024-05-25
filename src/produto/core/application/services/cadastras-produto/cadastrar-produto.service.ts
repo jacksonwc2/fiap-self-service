@@ -1,12 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { IProdutoRepository } from "../../repository/produto-repository.port";
 import { ICadastrarProdutoUseCase } from "./cadastrar-produto.use-case";
-import { CadastrarProdutoDTO } from "src/produto/core/domain/cadastrarProdutoDTO";
+import { Produto } from "src/produto/core/domain/produto";
 
 @Injectable()
-export class CadastrarProdutoService implements ICadastrarProdutoUseCase{
-    constructor(private produtoRepository: IProdutoRepository){}
-    async cadastrarProduto(produtoDTO: CadastrarProdutoDTO){
-        await this.produtoRepository.cadastrarProduto(produtoDTO);
-    }
+export class CadastrarProdutoService implements ICadastrarProdutoUseCase {
+  constructor(private produtoRepository: IProdutoRepository) {}
+  async cadastrarProduto(produto: Produto) {
+    return await this.produtoRepository.cadastrarProduto(produto);
+  }
 }

@@ -1,43 +1,48 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmpty } from "class-validator";
 import { PedidoStatus } from "src/pedido/adapter/driven/entity/enum/pedidoStatus.enum";
 
 export class Pedido {
-    
-    id: string | null;
+  id: string | null;
 
-    @ApiProperty()
-    idPagamento: string;
+  @ApiProperty()
+  idPagamento: string;
 
-    @ApiProperty()
-    idCliente: string;
+  @ApiProperty()
+  @IsNotEmpty()
+  idCliente: string;
 
-    @ApiProperty()
-    valorTotal: number;
+  @ApiProperty()
+  @IsNotEmpty()
+  valorTotal: number;
 
-    @ApiProperty()
-    dataCriacao: Date;
+  @ApiProperty()
+  @IsNotEmpty()
+  dataCriacao: Date;
 
-    @ApiProperty()
-    status: PedidoStatus;
+  @ApiProperty()
+  @IsNotEmpty()
+  status: PedidoStatus;
 
-    
-    @ApiProperty({ type: () => ItemPedido, isArray: true })
-    itens: ItemPedido[];
+  @ApiProperty({ type: () => ItemPedido, isArray: true })
+  @IsNotEmpty()
+  itens: ItemPedido[];
 }
 
 export class ItemPedido {
+  id: string | null;
 
-    id: string | null;
+  idPedido: string;
 
-    @ApiProperty()
-    idPedido: string;
+  @ApiProperty()
+  @IsNotEmpty()
+  idProduto: string;
 
-    @ApiProperty()
-    idProduto: string;
+  @ApiProperty()
+  @IsNotEmpty()
+  quantidade: number;
 
-    @ApiProperty()
-    quantidade: number;
-
-    @ApiProperty()
-    valor: number;
+  @ApiProperty()
+  @IsNotEmpty()
+  valor: number;
 }

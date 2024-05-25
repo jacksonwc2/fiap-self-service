@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { IBuscarProdutoPorCategoriaUseCase } from "src/produto/core/application/services/buscar-produto-por-categoria/buscar-produto-categoria.use-case";
 import { ICadastrarProdutoUseCase } from "src/produto/core/application/services/cadastras-produto/cadastrar-produto.use-case";
-import { CadastrarProdutoDTO } from "src/produto/core/domain/cadastrarProdutoDTO";
-import { EditarProdutoDTO } from "src/produto/core/domain/editarProdutoDTO";
-import { ProdutoDTO } from "../../core/domain/produtoDTO";
-import { IConsultarProdutoPorCategoriaUseCase } from "../../core/application/services/consultar-produto/consultar-produto-categoria.use-case";
-import { ProdutoRepositoryService } from "../driven/produto-repository/produto-repository.service";
+import { IDeletarProdutoUseCase } from "src/produto/core/application/services/deletar-produto/deletar-produto.use-case";
+import { IEditarProdutoUseCase } from "src/produto/core/application/services/editar-produto/editar-produto.use-case";
+import { IListarProdutosUseCase } from "src/produto/core/application/services/listar-produtos/listar-produtos.use-case";
+import { Produto } from "src/produto/core/domain/produto";
 
 @ApiTags('Produtos')
 @Controller('produtos')
@@ -13,8 +13,10 @@ export class ProdutoController{
 
     constructor(
         private readonly cadastrarProdutoUSeCase: ICadastrarProdutoUseCase,
-        private readonly produtoRepository: ProdutoRepositoryService,
-        private readonly consultarProdutoCategoriaUseCase: IConsultarProdutoPorCategoriaUseCase
+        private readonly buscarProdutoCategoriaUseCase: IBuscarProdutoPorCategoriaUseCase,
+        private readonly listarProdutosUseCase: IListarProdutosUseCase,
+        private readonly editarProdutoUseCase: IEditarProdutoUseCase,
+        private readonly deletarProdutoUseCase: IDeletarProdutoUseCase,
     ){}
 
     @ApiOperation({
@@ -25,8 +27,8 @@ export class ProdutoController{
     @ApiResponse({ status: 201, description: 'Produto cadastrado com sucesso.' })
     @ApiResponse({ status: 400, description: 'Produto já cadastrado.' })
     @Post()
-    async cadastarProduto(@Body() produtoDTO: CadastrarProdutoDTO) {
-        await this.cadastrarProdutoUSeCase.cadastrarProduto(produtoDTO);
+    async cadastarProduto(@Body() produto: Produto) {
+        return await this.cadastrarProdutoUSeCase.cadastrarProduto(produto);
     }
 
     @ApiOperation({
@@ -37,7 +39,7 @@ export class ProdutoController{
     @ApiResponse({ status: 400, description: 'Produtos não encontrados.' })
     @Get()
     async listarProdutos(){
-        return await this.produtoRepository.listarProdutos();
+        return await this.listarProdutosUseCase.buscarProdutos();
     }
 
     @ApiOperation({
@@ -47,8 +49,8 @@ export class ProdutoController{
     @ApiResponse({ status: 200, description: 'Produto listado com sucesso.' })
     @ApiResponse({ status: 400, description: 'Produto não encontrado.' })
     @Get('/:categoria')
-    async buscarProdutoPorCategoria(@Param('categoria') categoria: string): Promise<ProdutoDTO[]> {
-        return await this.consultarProdutoCategoriaUseCase.buscarProdutoPorCategoria(categoria);
+    async buscarProdutoPorCategoria(@Param('categoria') categoria: string): Promise<Produto[]> {
+        return await this.buscarProdutoCategoriaUseCase.buscarProdutoPorCategoria(categoria);
     }
 
     @ApiOperation({
@@ -58,8 +60,8 @@ export class ProdutoController{
     @ApiResponse({ status: 200, description: 'Produto atualizado com sucesso.' })
     @ApiResponse({ status: 400, description: 'Produto não encontrado.' })
     @Put('/:id')
-    async editarProduto(@Param('id') id: string, @Body() novosDados: EditarProdutoDTO){
-        return await this.produtoRepository.editarProduto(id, novosDados);
+    async editarProduto(@Param('id') id: string, @Body() produto: Produto){
+        return await this.editarProdutoUseCase.editarProduto({id, ...produto});
     }
 
     @ApiOperation({
@@ -70,6 +72,6 @@ export class ProdutoController{
     @ApiResponse({ status: 400, description: 'Produto não existe na base de dados.' })
     @Delete('/:id')
     async deletarProduto(@Param('id') id: string){
-        await this.produtoRepository.deletarProduto(id);
+        await this.deletarProdutoUseCase.deletarProduto(id);
     }
 }

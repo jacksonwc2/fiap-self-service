@@ -1,5 +1,5 @@
-import { CadastrarProdutoDTO } from "src/produto/core/domain/cadastrarProdutoDTO";
+import { Produto } from "src/produto/core/domain/produto";
 
 export abstract class ICadastrarProdutoUseCase {
-    abstract cadastrarProduto(produtoDTO: CadastrarProdutoDTO);
+    abstract cadastrarProduto(produto: Produto);
   }

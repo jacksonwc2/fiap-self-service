@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IConsultarClientePorCPFUseCase } from './consultar-cliente-cpf.use-case';
 import { IClienteRepository } from '../../repository/cliente-repository.port';
-import { Cliente } from 'src/cliente/core/domain/Cliente';
+import { Cliente } from 'src/cliente/core/domain/cliente';
 import { removerCaracteresAlfanumericos } from 'src/common/utils/removerCaracteresAlfanumericos';
 
 @Injectable()

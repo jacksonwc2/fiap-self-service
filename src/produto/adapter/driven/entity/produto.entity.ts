@@ -14,6 +14,6 @@ export class ProdutoEntity {
     @Column({ name: 'categoria', nullable: false, length: 250 })
     categoria: string;
 
-    @Column({ name: 'valor', nullable: false })
+    @Column("decimal", { precision: 5, scale: 2, name: 'valor', nullable: false })
     valor: number;
 }
