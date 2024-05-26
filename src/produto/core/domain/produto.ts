@@ -6,22 +6,22 @@ export class Produto {
 
     id: string | null;
 
-    @ApiProperty()
+    @ApiProperty({default: 'Nome Produto'})
     @IsNotEmpty()
     @Length(3, 250)
     nome: string;
 
-    @ApiProperty()
+    @ApiProperty({default: 'Descrição do Produto'})
     @IsNotEmpty()
     @Length(3, 250)
     descricao: string;
 
-    @ApiProperty()
+    @ApiProperty({default: CategoriaProdutoType.LANCHE})
     @IsNotEmpty()
     @IsEnum(CategoriaProdutoType)
     categoria: string;
 
-    @ApiProperty()
+    @ApiProperty({default: 30.55})
     @IsNotEmpty()
     valor: number;
 }

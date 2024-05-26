@@ -23,7 +23,7 @@ export class ProdutoController{
     @ApiOperation({
         summary: 'Cadastrar Produto',
         description:
-            'Para cadastrar um novo produto é necessário informar os campos obrigatórios nome, descrição, categoria e valor',
+            'Para cadastrar um novo produto é necessário informar os campos obrigatórios nome, descrição, categoria(LANCHE, ACOMPANHAMENTO, BEBIDA ou SOBREMESA) e valor',
     })
     @ApiResponse({ status: 201, description: 'Produto cadastrado com sucesso.' })
     @ApiResponse({ status: 400, description: 'Produto já cadastrado.' })
@@ -45,7 +45,7 @@ export class ProdutoController{
 
     @ApiOperation({
         summary: 'Listagem de Produtos por Categoria',
-        description: 'Para listar os produtos é necessário informar uma categoria',
+        description: 'Para listar os produtos é necessário informar uma categoria(LANCHE, ACOMPANHAMENTO, BEBIDA ou SOBREMESA)',
     })
     @ApiResponse({ status: 200, description: 'Produto listado com sucesso.' })
     @ApiResponse({ status: 400, description: 'Produto não encontrado.' })
@@ -57,7 +57,7 @@ export class ProdutoController{
 
     @ApiOperation({
         summary: 'Atualização de Produto',
-        description: 'Para atualizar um produto é necessário informar o ID. Todos os campos são opcionais.',
+        description: 'Para atualizar um produto é necessário informar o ID e os novos dados do produto.',
     })
     @ApiResponse({ status: 200, description: 'Produto atualizado com sucesso.' })
     @ApiResponse({ status: 400, description: 'Produto não encontrado.' })
@@ -68,7 +68,7 @@ export class ProdutoController{
 
     @ApiOperation({
         summary: 'Exclusão de Produto',
-        description: 'Para atualizar um produto é necessário informar o ID.',
+        description: 'Para excluir um produto é necessário informar o ID.',
     })
     @ApiResponse({ status: 200, description: 'Produto excluído com sucesso.' })
     @ApiResponse({ status: 400, description: 'Produto não existe na base de dados.' })
