@@ -30,7 +30,7 @@ export class PedidoController {
     @ApiOperation({
         summary: 'Cadastrar Pedido',
         description:
-            'Informe o combo e dados do pedido. O campo "idPagamento" pode ser preenchido com um MOCK de pagamento.'
+            'Informe o combo e dados do pedido. O campo "idPagamento" pode ser preenchido com um MOCK de pagamento. Se o cliente optar por não se identificar o campo "idCliente" não precisa ser preenchido'
     })
     @ApiResponse({ status: 201, description: 'Pedido cadastrado com sucesso.'})
     @ApiResponse({ status: 400, description: 'Combo obrigatório.'})
