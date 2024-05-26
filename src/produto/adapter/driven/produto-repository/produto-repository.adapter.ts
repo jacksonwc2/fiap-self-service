@@ -3,6 +3,7 @@ import { Repository } from "typeorm";
 import { ProdutoEntity } from "../entity/produto.entity";
 import { IProdutoRepository } from "src/produto/core/application/repository/produto-repository.port";
 import { Produto } from "src/produto/core/domain/produto";
+import { CategoriaProdutoType } from "src/produto/core/domain/categoria-produto-type.enum";
 
 @Injectable()
 export class ProdutoRepositoryAdapter implements IProdutoRepository {
@@ -35,7 +36,7 @@ export class ProdutoRepositoryAdapter implements IProdutoRepository {
     await this.produtoRepository.delete(id);
   }
 
-  async buscarProdutoPorCategoria(categoria: string): Promise<Produto[]> {
+  async buscarProdutoPorCategoria(categoria: CategoriaProdutoType): Promise<Produto[]> {
     return await this.produtoRepository.find({ where: { categoria } });
   }
 }

@@ -1,10 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { IBuscarProdutoPorCategoriaUseCase } from "src/produto/core/application/services/buscar-produto-por-categoria/buscar-produto-categoria.use-case";
 import { ICadastrarProdutoUseCase } from "src/produto/core/application/services/cadastras-produto/cadastrar-produto.use-case";
 import { IDeletarProdutoUseCase } from "src/produto/core/application/services/deletar-produto/deletar-produto.use-case";
 import { IEditarProdutoUseCase } from "src/produto/core/application/services/editar-produto/editar-produto.use-case";
 import { IListarProdutosUseCase } from "src/produto/core/application/services/listar-produtos/listar-produtos.use-case";
+import { CategoriaProdutoType } from "src/produto/core/domain/categoria-produto-type.enum";
 import { Produto } from "src/produto/core/domain/produto";
 
 @ApiTags('Produtos')
@@ -49,7 +50,8 @@ export class ProdutoController{
     @ApiResponse({ status: 200, description: 'Produto listado com sucesso.' })
     @ApiResponse({ status: 400, description: 'Produto não encontrado.' })
     @Get('/:categoria')
-    async buscarProdutoPorCategoria(@Param('categoria') categoria: string): Promise<Produto[]> {
+    @ApiQuery({name: 'categoria', enum: CategoriaProdutoType})
+    async buscarProdutoPorCategoria(@Param('categoria') categoria: CategoriaProdutoType): Promise<Produto[]> {
         return await this.buscarProdutoCategoriaUseCase.buscarProdutoPorCategoria(categoria);
     }
 

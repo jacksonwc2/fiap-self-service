@@ -1,3 +1,4 @@
+import { CategoriaProdutoType } from '../../domain/categoria-produto-type.enum';
 import { Produto } from '../../domain/produto';
 
 export abstract class IProdutoRepository {
@@ -6,5 +7,5 @@ export abstract class IProdutoRepository {
   abstract buscarProdutoPorNome(nome: string): Promise<Produto>;
   abstract editarProduto(produto: Produto): Promise<Produto>;
   abstract deletarProduto(id: string);
-  abstract buscarProdutoPorCategoria(categoria: string): Promise<Produto[]>;
+  abstract buscarProdutoPorCategoria(categoria: CategoriaProdutoType): Promise<Produto[]>;
 }

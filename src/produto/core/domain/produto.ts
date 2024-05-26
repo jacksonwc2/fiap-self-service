@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, Length } from "class-validator";
+import { IsEnum, IsNotEmpty, Length } from "class-validator";
+import { CategoriaProdutoType } from "./categoria-produto-type.enum";
 
 export class Produto {
 
@@ -17,9 +18,11 @@ export class Produto {
 
     @ApiProperty()
     @IsNotEmpty()
+    @IsEnum(CategoriaProdutoType)
     categoria: string;
 
     @ApiProperty()
     @IsNotEmpty()
     valor: number;
 }
+  
