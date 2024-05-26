@@ -1,48 +1,32 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty } from "class-validator";
-import { PedidoStatus } from "src/pedido/adapter/driven/entity/enum/pedidoStatus.enum";
+import { IsEnum, IsNotEmpty } from "class-validator";
+import { PedidoStatusType } from "./pedido-status-type.enum";
+import { ItemPedido } from "./item-pedido";
 
 export class Pedido {
   id: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ default: "uuid_mock_pagamento" })
   idPagamento: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: "uuid_cliente" })
   @IsNotEmpty()
   idCliente: string;
 
-  @ApiProperty()
+  @ApiProperty({ default: 30.55 })
   @IsNotEmpty()
   valorTotal: number;
 
-  @ApiProperty()
+  @ApiProperty({ default: new Date() })
   @IsNotEmpty()
   dataCriacao: Date;
 
-  @ApiProperty()
+  @ApiProperty({ default: PedidoStatusType.RECEBIDO })
   @IsNotEmpty()
-  status: PedidoStatus;
+  @IsEnum(PedidoStatusType)
+  status: string;
 
   @ApiProperty({ type: () => ItemPedido, isArray: true })
   @IsNotEmpty()
-  itens: ItemPedido[];
-}
-
-export class ItemPedido {
-  id: string | null;
-
-  idPedido: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  idProduto: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  quantidade: number;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  valor: number;
+  combo: ItemPedido[];
 }

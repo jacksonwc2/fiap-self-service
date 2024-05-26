@@ -16,7 +16,7 @@ import { IAtualizarStatusPedidoUseCase } from 'src/pedido/core/application/servi
 import { IListarPedidoPorIdClienteUseCase } from 'src/pedido/core/application/services/listar-pedidos-com-filtro/listar-pedido.filtrado.use-case';
 
 @ApiTags('Pedidos')
-@Controller('Pedido')
+@Controller('pedidos')
 export class PedidoController {
     constructor(
         private readonly cadastrarPedidoUseCase: ICadastrarPedidoUseCase,
@@ -81,7 +81,7 @@ export class PedidoController {
     @ApiOperation({
         summary: 'Atualizar Status de Pedido',
         description:
-            'Atualiza apenas status do pedido, os status possíveis são [PENDING, PROCESSING, COMPLETED, CANCELLED]'
+            'Atualiza apenas status do pedido, os status possíveis são [RECEBIDO, PREPARACAO, PRONTO, FINALIZADO]'
     })
     @ApiResponse({ status: 201, description: 'Status do pedido atualizado com sucesso.'})
     async atualizarStatusPedido(
