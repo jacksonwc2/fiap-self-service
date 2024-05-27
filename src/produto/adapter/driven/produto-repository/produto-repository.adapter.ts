@@ -12,12 +12,12 @@ export class ProdutoRepositoryAdapter implements IProdutoRepository {
     private produtoRepository: Repository<ProdutoEntity>
   ) {}
 
-  async buscarProdutoPorNome(nome: string): Promise<Produto>  {
-    const produtoPorNome = await this.produtoRepository.findOne({
-      where: { nome },
+  async buscarProdutoPorID(id: string): Promise<Produto>  {
+    const produtoPorID = await this.produtoRepository.findOne({
+      where: { id },
     });
 
-    return produtoPorNome;
+    return produtoPorID;
   }
 
   async listarProdutos(): Promise<Produto[]>  {
