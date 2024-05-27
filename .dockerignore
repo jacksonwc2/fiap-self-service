@@ -18,3 +18,4 @@ Dockerfile
 README.md
 .eslintrc.js
 nodemon.json
+docs
