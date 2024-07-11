@@ -2,7 +2,7 @@ name: CD
 on:
   push:
     branches:
-      - feat/integracao-continua
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
