@@ -4,6 +4,7 @@ import { ProdutoModule } from './produto/produto.module';
 import { PedidoModule } from './pedido/pedido.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ConfigModule } from '@nestjs/config';
     ProdutoModule,
     PedidoModule,
     DatabaseModule,
+    HealthModule,
   ],
   controllers: [],
   providers: [],
