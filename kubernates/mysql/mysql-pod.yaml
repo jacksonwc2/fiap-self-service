@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-pod
+  labels:
+    app: mysql-pod
+spec:
+  containers:
+  - name: mysql
+    image: mysql:8.0
+    ports:
+    - containerPort: 3306
+    envFrom:
+    - secretRef:
+        name: mysql-secret
+    volumeMounts:
+    - name: shared
+      mountPath: /var/lib/mysql
+  volumes:
+  - name: shared
+    persistentVolumeClaim:
+    claimName: fiap-pvc-mysql

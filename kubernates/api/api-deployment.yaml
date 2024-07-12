@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fiap-api
+  labels:
+    app: fiap-api
+spec:
+  template:
+    metadata:
+      name: fiap-api
+      labels:
+        app: fiap-api
+    spec:
+      containers:
+        - name: fiap-api-container
+          image: jacksoncarbonera/fiap-self-service
+          ports:
+            - containerPort: 3000
+          envFrom:
+          - configMapRef:
+              name: api-config 
+          - secretRef:
+             name: api-secret
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            periodSeconds: 10
+            failureThreshold: 3
+            initialDelaySeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            periodSeconds: 10
+            failureThreshold: 5
+            initialDelaySeconds: 3
+          resources:
+            limits:
+              cpu: "100m"
+              memory: "100Mi"
+            requests:
+              cpu: "50m"
+              memory: "50Mi"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fiap-api

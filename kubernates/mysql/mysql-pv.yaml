@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: fiap-pv-mysql
+  labels:
+    name: fiap-pv-mysql
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage-db
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: /home/jackson/fiap-pv
