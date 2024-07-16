@@ -5,5 +5,5 @@ metadata:
   labels:
     name: api-config
 data:
-  DATABASE_HOST: mysql-nodeport-svc
-  DATABASE_PORT: "13306"
+  DATABASE_HOST: 192.168.49.2
+  DATABASE_PORT: "32000"
