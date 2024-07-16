@@ -19,4 +19,4 @@ spec:
   volumes:
   - name: shared
     persistentVolumeClaim:
-    claimName: fiap-pvc-mysql
+      claimName: fiap-pvc-mysql
