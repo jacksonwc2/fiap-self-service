@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  labels:
+    name: api-config
+data:
+  DATABASE_HOST: "10.1.0.34"
+  DATABASE_PORT: "3306"
