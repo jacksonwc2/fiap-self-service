@@ -5,5 +5,5 @@ metadata:
   labels:
     name: api-config
 data:
-  DATABASE_HOST: "10.1.0.34"
+  DATABASE_HOST: "localhost" # SUBSTITUI PELO CLUSTER IP mysql-nodeport-svc
   DATABASE_PORT: "3306"
