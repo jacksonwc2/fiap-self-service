@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { removerCaracteresAlfanumericos } from 'src/common/removerCaracteresAlfanumericos';
 import { Cliente } from '../entities/cliente';
 import { ClienteGateway } from '../adapters/gateways/cliente-gateway';
 import { ClienteDTO } from '../dto/clienteDTO';
@@ -10,7 +9,7 @@ export class CadastrarClienteUseCase {
   async execute(clienteGateway: ClienteGateway, clienteDTO: ClienteDTO): Promise<Cliente> {
 
     // remove os caracteres alfanumericos do CPF
-    const cpf = removerCaracteresAlfanumericos(clienteDTO.cpf);
+    const cpf = clienteDTO.cpf.replace(/[^0-9]/g,'');
 
     const cliente = new Cliente(clienteDTO.nome, clienteDTO.email, clienteDTO.cpf);
 
