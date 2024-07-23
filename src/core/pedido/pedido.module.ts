@@ -1,55 +1,56 @@
 import { Module } from "@nestjs/common";
-import { PedidoEntity } from "./adapter/driven/entity/pedido.entity";
-import { PedidoRepository } from "./adapter/driven/pedido-repository/pedido-repository";
-import { DataSource } from "typeorm";
-import { CadastrarPedidoUseCase } from "./core/application/services/cadastrar-pedido/cadastrar-pedido.service";
-import { DatabaseModule } from "src/infrastructure/database/database.module";
-import { PedidoController } from "./adapter/driver/pedido.controller";
-import { ConsultarPedidoPorIdUseCase } from "./core/application/services/consultar-pedido/consultar-pedido.service";
-import { ListarPedidoUseCase } from "./core/application/services/listar-pedidos/listar-pedido.service";
-import { AtualizarStatusPedidoUseCase } from "./core/application/services/atualizar-status-pedido/atualizar-status-pedido.service";
-import { IPedidoRepository } from "./core/application/repository/pedido-repository.port";
-import { ICadastrarPedidoUseCase } from "./core/application/services/cadastrar-pedido/cadastrar-pedido.use-case";
-import { IConsultarPedidoPorIdUseCase } from "./core/application/services/consultar-pedido/consultar-pedido.use-case";
-import { IListarPedidoUseCase } from "./core/application/services/listar-pedidos/listar-pedido.use-case";
-import { IAtualizarStatusPedidoUseCase } from "./core/application/services/atualizar-status-pedido/atualizar-status-pedido.use-case";
-import { ItemPedidoEntity } from "./adapter/driven/entity/itemPedido.entity";
-import { IListarPedidoPorIdClienteUseCase } from "./core/application/services/listar-pedidos-com-filtro/listar-pedido.filtrado.use-case";
-import { ListarPedidoPorIdClienteUseCase } from "./core/application/services/listar-pedidos-com-filtro/listar-pedido-filtrado.service";
-import { ClienteModule } from "src/core/cliente/cliente.module";
-import { ProdutoModule } from "src/core/produto/produto.module";
 import { ProdutoEntity } from "src/core/produto/adapter/driven/entity/produto.entity";
 import { IProdutoRepository } from "src/core/produto/core/application/repository/produto-repository.port";
 import { ProdutoRepositoryAdapter } from "src/core/produto/adapter/driven/produto-repository/produto-repository.adapter";
 import { ClienteEntity } from "../cliente/external/repository/cliente.entity";
 import { IClienteRepository } from "../cliente/external/repository/cliente-repository.interface";
 import { ClienteRepository } from "../cliente/external/repository/cliente-repository";
+import { IPedidoRepository } from "./external/repository/pedido-repository.interface";
+import { PedidoRepository } from "./external/repository/pedido-repository";
+import { CadastrarPedidoUseCase } from "./use-cases/cadastrar-pedido-use-case";
+import { ConsultarPedidoPorIdUseCase } from "./use-cases/consultar-pedido-use-case";
+import { ListarPedidoUseCase } from "./use-cases/listar-pedido-use-case";
+import { AtualizarStatusPedidoUseCase } from "./use-cases/atualizar-status-pedido-use-case";
+import { ListarPedidoPorIdClienteUseCase } from "./use-cases/listar-pedido-filtrado-use-case";
+import { DataSource } from "typeorm";
+import { PedidoEntity } from "./external/repository/pedido.entity";
+import { ItemPedidoEntity } from "./external/repository/itemPedido.entity";
+import { PedidoAPIController } from "./external/api/pedido-api.controller";
+import { DatabaseModule } from "src/infrastructure/database/database.module";
+import { CadastrarPedidoController } from "./adapters/controllers/cadastrar-pedido-controller";
+import { ConsultarPedidoPorIdController } from "./adapters/controllers/consultar-pedido-controller";
+import { ListarPedidoController } from "./adapters/controllers/listar-pedido-controller";
+import { AtualizarStatusPedidoController } from "./adapters/controllers/atualizar-status-pedido-controller";
+import { ListarPedidoPorIdClienteController } from "./adapters/controllers/listar-pedido-filtrado-controller";
+import { ProdutoGateway } from "../produto/adapters/gateways/produto-gateway";
+import { ClienteGateway } from "../cliente/adapters/gateways/cliente-gateway";
+import { PedidoGateway } from "./adapters/gateways/pedido-gateway";
+import { ProdutoModule } from "../produto/produto.module";
+import { ClienteModule } from "../cliente/cliente.module";
 
 @Module({
   providers: [
+    // use cases
+    CadastrarPedidoUseCase,
+    ConsultarPedidoPorIdUseCase,
+    ListarPedidoUseCase,
+    AtualizarStatusPedidoUseCase,
+    ListarPedidoPorIdClienteUseCase,
+
+    // controllers
+    CadastrarPedidoController,
+    ConsultarPedidoPorIdController,
+    ListarPedidoController,
+    AtualizarStatusPedidoController,
+    ListarPedidoPorIdClienteController,
+
+    // gateways
+    PedidoGateway,
+
+    //  repository
     {
       provide: IPedidoRepository,
       useClass: PedidoRepository,
-    },
-    {
-      provide: ICadastrarPedidoUseCase,
-      useClass: CadastrarPedidoUseCase,
-    },
-    {
-      provide: IConsultarPedidoPorIdUseCase,
-      useClass: ConsultarPedidoPorIdUseCase,
-    },
-    {
-      provide: IListarPedidoUseCase,
-      useClass: ListarPedidoUseCase,
-    },
-    {
-      provide: IAtualizarStatusPedidoUseCase,
-      useClass: AtualizarStatusPedidoUseCase,
-    },
-    {
-      provide: IListarPedidoPorIdClienteUseCase,
-      useClass: ListarPedidoPorIdClienteUseCase,
     },
     {
       provide: "PEDIDO_REPOSITORY",
@@ -63,28 +64,8 @@ import { ClienteRepository } from "../cliente/external/repository/cliente-reposi
         datasource.getRepository(ItemPedidoEntity),
       inject: ["DATA_SOURCE"],
     },
-    {
-      provide: "PRODUTO_REPOSITORY",
-      useFactory: (dataSource: DataSource) =>
-        dataSource.getRepository(ProdutoEntity),
-      inject: ["DATA_SOURCE"],
-    },
-    {
-      provide: "CLIENTE_REPOSITORY",
-      useFactory: (dataSource: DataSource) =>
-        dataSource.getRepository(ClienteEntity),
-      inject: ["DATA_SOURCE"],
-    },
-    {
-      provide: IProdutoRepository,
-      useClass: ProdutoRepositoryAdapter,
-    },
-    {
-      provide: IClienteRepository,
-      useClass: ClienteRepository,
-    },
   ],
-  controllers: [PedidoController],
-  imports: [DatabaseModule],
+  controllers: [PedidoAPIController],
+  imports: [DatabaseModule, ProdutoModule, ClienteModule],
 })
 export class PedidoModule {}

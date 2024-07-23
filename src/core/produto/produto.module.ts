@@ -15,9 +15,11 @@ import { IEditarProdutoUseCase } from "./core/application/services/editar-produt
 import { EditarProdutoService } from "./core/application/services/editar-produto/editar-produto.service";
 import { IDeletarProdutoUseCase } from "./core/application/services/deletar-produto/deletar-produto.use-case";
 import { DeletarProdutoService } from "./core/application/services/deletar-produto/deletar-produto.service";
+import { ProdutoGateway } from "./adapters/gateways/produto-gateway";
 
 @Module({
   providers: [
+    ProdutoGateway,
     {
       provide: ICadastrarProdutoUseCase,
       useClass: CadastrarProdutoService,
@@ -51,5 +53,6 @@ import { DeletarProdutoService } from "./core/application/services/deletar-produ
   ],
   controllers: [ProdutoController],
   imports: [DatabaseModule],
+  exports: [ProdutoGateway]
 })
 export class ProdutoModule {}

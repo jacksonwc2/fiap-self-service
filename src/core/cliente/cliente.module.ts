@@ -38,5 +38,6 @@ import { CadastrarClienteController } from './adapters/controllers/cadastrar-cli
   ],
   controllers: [ClienteAPIController],
   imports: [DatabaseModule],
+  exports: [ClienteGateway,]
 })
 export class ClienteModule {}
