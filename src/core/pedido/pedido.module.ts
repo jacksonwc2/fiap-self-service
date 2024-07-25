@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
-import { ProdutoEntity } from "src/core/produto/adapter/driven/entity/produto.entity";
+import { ProdutoEntity } from "src/core/produto/_old/adapter/driven/entity/produto.entity";
 import { IProdutoRepository } from "src/core/produto/core/application/repository/produto-repository.port";
-import { ProdutoRepositoryAdapter } from "src/core/produto/adapter/driven/produto-repository/produto-repository.adapter";
+import { ProdutoRepositoryAdapter } from "src/core/produto/_old/adapter/driven/produto-repository/produto-repository.adapter";
 import { ClienteEntity } from "../cliente/external/repository/cliente.entity";
 import { IClienteRepository } from "../cliente/external/repository/cliente-repository.interface";
 import { ClienteRepository } from "../cliente/external/repository/cliente-repository";
