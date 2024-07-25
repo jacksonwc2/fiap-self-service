@@ -14,8 +14,8 @@ export class IntencaoPagamentoEntity {
     @CreateDateColumn()
     dataCriacao: Date;
 
-    @CreateDateColumn()
-    dataFinalizacao: Date;
+    @CreateDateColumn({nullable: true})
+    dataFinalizacao: Date | null;
 
     @Column({
         name: "status",

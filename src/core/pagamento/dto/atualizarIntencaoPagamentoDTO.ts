@@ -4,7 +4,7 @@ import { IntencaoPagamentoStatusType } from "../entities/intencaoPagamentoStatus
 
 export class AtualizarIntencaoPagamentoDTO {
 
-    @ApiProperty()
+    @ApiProperty({default: IntencaoPagamentoStatusType.FINALIZADO})
     @IsNotEmpty()
     @IsEnum(IntencaoPagamentoStatusType)
     status: string;
