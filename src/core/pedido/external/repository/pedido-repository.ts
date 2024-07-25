@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Not, Repository } from "typeorm";
 import { Inject, Injectable } from "@nestjs/common";
 import { IPedidoRepository } from "./pedido-repository.interface";
 import { PedidoEntity } from "./pedido.entity";
@@ -36,7 +36,16 @@ export class PedidoRepository implements IPedidoRepository {
   }
 
   async listarPedidos(): Promise<PedidoEntity[]> {
-    return await this.pedidoRepo.find({ relations: ["combo"] });
+    return await this.pedidoRepo.find({
+      relations: ["combo"],
+      where: {
+        status: Not("FINALIZADO"),
+      },
+      order: {
+        status: 'DESC',
+        dataCriacao: 'ASC'
+      }
+    });
   }
 
   async buscarPorIdPedido(id: string): Promise<PedidoEntity | null> {
