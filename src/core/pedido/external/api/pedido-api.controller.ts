@@ -37,6 +37,7 @@ export class PedidoAPIController {
     async cadastrarPedido(
         @Body() pedidoDTO: PedidoDTO
     ): Promise<PedidoDTO> {
+
         return await this.cadastrarPedidoController.execute(pedidoDTO);
     }
 

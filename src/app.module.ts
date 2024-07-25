@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ClienteModule } from './core/cliente/cliente.module';
 import { ProdutoModule } from './core/produto/produto.module';
 import { PedidoModule } from './core/pedido/pedido.module';
+import { PagamentosModule } from "./core/pagamento/pagamento.module";
 import { DatabaseModule } from './infrastructure/database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { HealthModule } from './infrastructure/health/health.module';
@@ -14,6 +15,7 @@ import { HealthModule } from './infrastructure/health/health.module';
     ClienteModule,
     ProdutoModule,
     PedidoModule,
+    PagamentosModule,
     DatabaseModule,
     HealthModule,
   ],

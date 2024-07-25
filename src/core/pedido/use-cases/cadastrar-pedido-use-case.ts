@@ -3,11 +3,13 @@ import { Pedido } from "../entities/pedido";
 import { ClienteGateway } from "src/core/cliente/adapters/gateways/cliente-gateway";
 import { ProdutoGateway } from "src/core/produto/adapters/gateways/produto-gateway";
 import { PedidoGateway } from "../adapters/gateways/pedido-gateway";
+import {CadastrarIntencaoPagamentoUseCase} from "../../pagamento/use-cases/cadastrar-intencao-pagamento-use-case";
+import {IntencaoPagamentoGateway} from "../../pagamento/adapters/gateways/intencaoPagamento-gateway";
 
 @Injectable()
 export class CadastrarPedidoUseCase {
  
-  async execute(clienteGateway: ClienteGateway, produtoGateway: ProdutoGateway, pedidoGateway: PedidoGateway, pedido: Pedido): Promise<Pedido> {
+  async execute(clienteGateway: ClienteGateway, produtoGateway: ProdutoGateway, intencaoPagamentoGateway: IntencaoPagamentoGateway, cadastrarIntencaoPagamentoUseCase: CadastrarIntencaoPagamentoUseCase, pedidoGateway: PedidoGateway, pedido: Pedido): Promise<Pedido> {
     
     // Verifica se o cliente optou por se identificar e se o ID é valido
     if (
@@ -37,7 +39,9 @@ export class CadastrarPedidoUseCase {
       item.valor = produto.valor;
     }
 
-    const novoPedido = new Pedido(pedido.idCliente, pedido.combo, 'MOCK');
+    const intencaoPagamento = await cadastrarIntencaoPagamentoUseCase.execute(intencaoPagamentoGateway)
+
+    const novoPedido = new Pedido(pedido.idCliente, pedido.combo, intencaoPagamento.id);
 
     return await pedidoGateway.salvarPedido(novoPedido);
   }
