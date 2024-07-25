@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { IProdutoRepository } from "../../core/application/repository/produto-repository.port";
-import { Produto } from "../../core/domain/produto";
-import { CategoriaProdutoType } from "../../core/domain/categoria-produto-type.enum";
+import { IProdutoRepository } from "../../external/repository/produto-repository-interface";
+import { Produto } from "../../entities/produto";
 
 @Injectable()
 export class ProdutoGateway {
@@ -29,7 +28,7 @@ export class ProdutoGateway {
     await this.produtoRepository.deletarProduto(id);
   }
 
-  async buscarProdutoPorCategoria(categoria: CategoriaProdutoType): Promise<Produto[]> {
+  async buscarProdutoPorCategoria(categoria: string): Promise<Produto[]> {
     return await this.produtoRepository.buscarProdutoPorCategoria(categoria);
   }
 }

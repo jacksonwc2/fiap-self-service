@@ -1,5 +1,5 @@
-import { CategoriaProdutoType } from "src/core/produto/core/domain/categoria-produto-type.enum";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { CategoriaProdutoType } from "../../dto/categoria-produto-type-enum";
 
 @Entity()
 export class ProdutoEntity {
