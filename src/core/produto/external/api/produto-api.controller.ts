@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from "@nestjs/common";
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ProdutoDTO } from "../../dto/produtoDTO";
 import { CategoriaProdutoType } from "../../dto/categoria-produto-type-enum";
@@ -49,9 +49,9 @@ export class ProdutoAPIController{
     })
     @ApiResponse({ status: 200, description: 'Produto listado com sucesso.' })
     @ApiResponse({ status: 400, description: 'Produto não encontrado.' })
-    @Get('/:categoria')
+    @Get('/categoria')
     @ApiQuery({name: 'categoria', enum: CategoriaProdutoType})
-    async buscarProdutoPorCategoria(@Param('categoria') categoria: CategoriaProdutoType): Promise<ProdutoDTO[]> {
+    async buscarProdutoPorCategoria(@Query('categoria') categoria: CategoriaProdutoType): Promise<ProdutoDTO[]> {
         return await this.buscarProdutoPorCategoriaController.execute(categoria);
     }
 

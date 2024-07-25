@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { ProdutoDTO } from '../../dto/produtoDTO';
 import { ProdutoGateway } from '../gateways/produto-gateway';
-import { BuscarProdutoUseCase } from '../../use-cases/buscar-produto-use-case';
+import { BuscarProdutoPorCategoriaUseCase } from '../../use-cases/buscar-produto-por-categoria-use-case';
 
 @Injectable()
-export class BuscarProdutoController {
+export class BuscarProdutoPorCategoriaController {
 
   constructor(
     private readonly produtoGateway: ProdutoGateway,
-    private readonly buscarProdutoUseCase: BuscarProdutoUseCase
+    private readonly buscarProdutoUseCase: BuscarProdutoPorCategoriaUseCase
   ) {}
 
   async execute(categoriaId: string): Promise<ProdutoDTO[]> {

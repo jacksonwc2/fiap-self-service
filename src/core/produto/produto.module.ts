@@ -1,48 +1,45 @@
 import { Module } from "@nestjs/common";
-import { ICadastrarProdutoUseCase } from "./core/application/services/cadastras-produto/cadastrar-produto.use-case";
-import { CadastrarProdutoService } from "./core/application/services/cadastras-produto/cadastrar-produto.service";
-import { IProdutoRepository } from "./core/application/repository/produto-repository.port";
-import { ProdutoRepositoryAdapter } from "./_old/adapter/driven/produto-repository/produto-repository.adapter";
-import { DataSource } from "typeorm";
-import { ProdutoController } from "./_old/adapter/driver/produto.controller";
-import { DatabaseModule } from "src/infrastructure/database/database.module";
-import { ProdutoEntity } from "./_old/adapter/driven/entity/produto.entity";
-import { IBuscarProdutoPorCategoriaUseCase } from "./core/application/services/buscar-produto-por-categoria/buscar-produto-categoria.use-case";
-import { BuscarProdutoPorCategoriaService } from "./core/application/services/buscar-produto-por-categoria/buscar-produto-categoria.service";
-import { IListarProdutosUseCase } from "./core/application/services/listar-produtos/listar-produtos.use-case";
-import { ListarProdutosService } from "./core/application/services/listar-produtos/listar-produtos.service";
-import { IEditarProdutoUseCase } from "./core/application/services/editar-produto/editar-produto.use-case";
-import { EditarProdutoService } from "./core/application/services/editar-produto/editar-produto.service";
-import { IDeletarProdutoUseCase } from "./core/application/services/deletar-produto/deletar-produto.use-case";
-import { DeletarProdutoService } from "./core/application/services/deletar-produto/deletar-produto.service";
+import { CadastrarProdutoUseCase } from "./use-cases/cadastrar-produto-use-case";
+import { ProdutoRepository } from "./external/repository/produto-repository";
 import { ProdutoGateway } from "./adapters/gateways/produto-gateway";
+import { BuscarProdutoPorCategoriaUseCase } from "./use-cases/buscar-produto-por-categoria-use-case";
+import { ListarProdutoUseCase } from "./use-cases/listar-produto-use-case";
+import { EditarProdutoUseCase } from "./use-cases/editar-produto-use-case";
+import { DeletarProdutoUseCase } from "./use-cases/deletar-produto-use-case";
+import { DataSource } from "typeorm";
+import { ProdutoEntity } from "./external/repository/produto.entity";
+import { ProdutoAPIController } from "./external/api/produto-api.controller";
+import { DatabaseModule } from "src/infrastructure/database/database.module";
+import { IProdutoRepository } from "./external/repository/produto-repository-interface";
+import { CadastrarProdutoController } from "./adapters/controllers/cadastrar-produto-controller";
+import { BuscarProdutoPorCategoriaController } from "./adapters/controllers/buscar-produto-por-categoria-controller";
+import { ListarProdutoController } from "./adapters/controllers/listar-produto-controller";
+import { EditarProdutoController } from "./adapters/controllers/editar-produto-controller";
+import { DeletarProdutoController } from "./adapters/controllers/deletar-produto-controller";
 
 @Module({
   providers: [
+    //gateway
     ProdutoGateway,
-    {
-      provide: ICadastrarProdutoUseCase,
-      useClass: CadastrarProdutoService,
-    },
+
+    // use case
+    CadastrarProdutoUseCase,
+    BuscarProdutoPorCategoriaUseCase,
+    ListarProdutoUseCase,
+    EditarProdutoUseCase,
+    DeletarProdutoUseCase,
+
+    // controllers
+    CadastrarProdutoController,
+    BuscarProdutoPorCategoriaController,
+    ListarProdutoController,
+    EditarProdutoController,
+    DeletarProdutoController,
+
+    // external repository
     {
       provide: IProdutoRepository,
-      useClass: ProdutoRepositoryAdapter,
-    },
-    {
-      provide: IBuscarProdutoPorCategoriaUseCase,
-      useClass: BuscarProdutoPorCategoriaService,
-    },
-    {
-      provide: IListarProdutosUseCase,
-      useClass: ListarProdutosService,
-    },
-    {
-      provide: IEditarProdutoUseCase,
-      useClass: EditarProdutoService,
-    },
-    {
-      provide: IDeletarProdutoUseCase,
-      useClass: DeletarProdutoService,
+      useClass: ProdutoRepository,
     },
     {
       provide: "PRODUTO_REPOSITORY",
@@ -51,7 +48,7 @@ import { ProdutoGateway } from "./adapters/gateways/produto-gateway";
       inject: ["DATA_SOURCE"],
     },
   ],
-  controllers: [ProdutoController],
+  controllers: [ProdutoAPIController],
   imports: [DatabaseModule],
   exports: [ProdutoGateway]
 })

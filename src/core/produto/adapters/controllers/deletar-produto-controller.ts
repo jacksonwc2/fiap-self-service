@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ProdutoDTO } from '../../dto/produtoDTO';
 import { ProdutoGateway } from '../gateways/produto-gateway';
 import { DeletarProdutoUseCase } from '../../use-cases/deletar-produto-use-case';
 
@@ -12,7 +11,6 @@ export class DeletarProdutoController {
   ) {}
 
   async execute(id: string) {
-
     await this.deletarProdutoUseCase.execute(this.produtoGateway, id);
   }
 }

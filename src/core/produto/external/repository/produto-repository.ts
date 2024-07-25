@@ -1,10 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { Repository } from "typeorm";
-import { ProdutoEntity } from "../entity/produto.entity";
-import { IProdutoRepository } from "src/core/produto/core/application/repository/produto-repository.port";
-import { CategoriaProdutoType } from "../../dto/categoria-produto-type-enum";
-// import { Produto } from "src/core/produto/core/domain/produto";
-// import { CategoriaProdutoType } from "src/core/produto/core/domain/categoria-produto-type.enum";
+import { IProdutoRepository } from "./produto-repository-interface";
+import { ProdutoEntity } from "./produto.entity";
 
 @Injectable()
 export class ProdutoRepository implements IProdutoRepository {
@@ -37,7 +34,7 @@ export class ProdutoRepository implements IProdutoRepository {
     await this.produtoRepository.delete(id);
   }
 
-  async buscarProdutoPorCategoria(categoria: CategoriaProdutoType): Promise<ProdutoEntity[]> {
+  async buscarProdutoPorCategoria(categoria: string): Promise<ProdutoEntity[]> {
     return await this.produtoRepository.find({ where: { categoria } });
   }
 }

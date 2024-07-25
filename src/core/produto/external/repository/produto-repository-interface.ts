@@ -7,5 +7,5 @@ export abstract class IProdutoRepository {
   abstract buscarProdutoPorID(id: string): Promise<ProdutoEntity>;
   abstract editarProduto(produto: ProdutoEntity): Promise<ProdutoEntity>;
   abstract deletarProduto(id: string);
-  abstract buscarProdutoPorCategoria(categoria: CategoriaProdutoType): Promise<ProdutoEntity[]>;
+  abstract buscarProdutoPorCategoria(categoria: string): Promise<ProdutoEntity[]>;
 }

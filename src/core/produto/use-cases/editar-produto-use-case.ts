@@ -4,7 +4,7 @@ import { ProdutoGateway } from "../adapters/gateways/produto-gateway";
 import { ProdutoDTO } from "../dto/produtoDTO";
 
 @Injectable()
-export class EditarProdutoService {
+export class EditarProdutoUseCase {
 
   async execute(produtoGateway: ProdutoGateway, produtoDTO: ProdutoDTO): Promise<Produto> {
     

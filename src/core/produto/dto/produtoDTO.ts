@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsNotEmpty, Length } from "class-validator";
-import { CategoriaProdutoType } from "./categoria-produto-type.enum";
+import { IsEnum } from "class-validator";
+import { CategoriaProdutoType } from "./categoria-produto-type-enum";
 
 export class ProdutoDTO {
 

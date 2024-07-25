@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { ProdutoGateway } from "../adapters/gateways/produto-gateway";
 @Injectable()
-export class DeletarProdutoService {
+export class DeletarProdutoUseCase {
   async execute(produtoGateway: ProdutoGateway, id: string) {
 
     if(!id || await produtoGateway.buscarProdutoPorID(id) == null){
