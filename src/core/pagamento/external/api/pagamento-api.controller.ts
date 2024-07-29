@@ -26,7 +26,8 @@ export class PagamentosAPIController {
     @Post('/:id')
     @ApiOperation({
         summary: 'Atualizar status de Intenção de Pagamento',
-        description: 'Webhook para atualização do status da Intenção de Pagamento'
+        description:
+    'Atualiza apenas status do pedido, os status possíveis são [EM_ANALISE, RECUSADO, FINALIZADO]'
     })
     @ApiResponse({ status: 201, description: 'Status da Intenção de Pagamento atualizado com sucesso.'})
     async atualizarStatusIntencaoPagamento(
