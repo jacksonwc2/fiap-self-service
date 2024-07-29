@@ -13,9 +13,7 @@ export class BuscarProdutoPorCategoriaController {
 
   async execute(categoriaId: string): Promise<ProdutoDTO[]> {
 
-    const produtos = await this.buscarProdutoUseCase.execute(this.produtoGateway, categoriaId);
-    const adapterPresenter: ProdutoDTO[] = {...produtos};
-        
-    return adapterPresenter;
+    return await this.buscarProdutoUseCase.execute(this.produtoGateway, categoriaId);
+
   }
 }

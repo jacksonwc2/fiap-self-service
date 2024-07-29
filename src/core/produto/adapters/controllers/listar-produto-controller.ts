@@ -13,9 +13,6 @@ export class ListarProdutoController {
 
   async execute(): Promise<ProdutoDTO[]> {
 
-    const produtos = await this.listarProdutoUseCase.execute(this.produtoGateway);
-    const adapterPresenter: ProdutoDTO[] = {...produtos};
-        
-    return adapterPresenter;
+    return await this.listarProdutoUseCase.execute(this.produtoGateway);
   }
 }
