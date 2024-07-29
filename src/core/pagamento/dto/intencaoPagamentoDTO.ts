@@ -8,4 +8,8 @@ export class IntencaoPagamentoDTO {
 
     status: string | null;
 
+    idExterno: string | null;
+
+    qrCode: string | null;
+
 }

@@ -5,11 +5,12 @@ import { ProdutoGateway } from "src/core/produto/adapters/gateways/produto-gatew
 import { PedidoGateway } from "../adapters/gateways/pedido-gateway";
 import {CadastrarIntencaoPagamentoUseCase} from "../../pagamento/use-cases/cadastrar-intencao-pagamento-use-case";
 import {IntencaoPagamentoGateway} from "../../pagamento/adapters/gateways/intencaoPagamento-gateway";
+import {IPagamentoClient} from "../../pagamento/external/client/pagamento-client.interface";
 
 @Injectable()
 export class CadastrarPedidoUseCase {
  
-  async execute(clienteGateway: ClienteGateway, produtoGateway: ProdutoGateway, intencaoPagamentoGateway: IntencaoPagamentoGateway, cadastrarIntencaoPagamentoUseCase: CadastrarIntencaoPagamentoUseCase, pedidoGateway: PedidoGateway, pedido: Pedido): Promise<Pedido> {
+  async execute(clienteGateway: ClienteGateway, produtoGateway: ProdutoGateway, intencaoPagamentoGateway: IntencaoPagamentoGateway, pagamentoClient: IPagamentoClient, cadastrarIntencaoPagamentoUseCase: CadastrarIntencaoPagamentoUseCase, pedidoGateway: PedidoGateway, pedido: Pedido): Promise<Pedido> {
     
     // Verifica se o cliente optou por se identificar e se o ID é valido
     if (
@@ -22,6 +23,7 @@ export class CadastrarPedidoUseCase {
       );
     }
 
+    let valorTotal = 0
     // verifica os itens do combo
     for (let item of pedido.combo) {
       const produto = await produtoGateway.buscarProdutoPorID(
@@ -37,9 +39,10 @@ export class CadastrarPedidoUseCase {
 
       // registra valor atualizado
       item.valor = produto.valor;
+      valorTotal += Number(item.valor) * Number(item.quantidade);
     }
 
-    const intencaoPagamento = await cadastrarIntencaoPagamentoUseCase.execute(intencaoPagamentoGateway)
+    const intencaoPagamento = await cadastrarIntencaoPagamentoUseCase.execute(intencaoPagamentoGateway, pagamentoClient, valorTotal)
 
     const novoPedido = new Pedido(pedido.idCliente, pedido.combo, intencaoPagamento.id);
 

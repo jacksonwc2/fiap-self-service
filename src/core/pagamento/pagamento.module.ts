@@ -13,6 +13,8 @@ import {IntencaoRepository} from "./external/repository/intencaoPagamento-reposi
 import {CadastrarIntencaoPagamentoUseCase} from "./use-cases/cadastrar-intencao-pagamento-use-case";
 import {PedidoModule} from "../pedido/pedido.module";
 import {HttpModule} from "@nestjs/axios";
+import {IPagamentoClient} from "./external/client/pagamento-client.interface";
+import {PagamentoMockClient} from "./external/client/pagamentoMock-client";
 
 @Module({
     providers:[
@@ -28,6 +30,12 @@ import {HttpModule} from "@nestjs/axios";
      //gateways
         IntencaoPagamentoGateway,
 
+    //clients
+        {
+            provide: IPagamentoClient,
+            useClass: PagamentoMockClient
+        },
+
      //repository
         {
             provide: IIntencaoPagamentoRepository,
@@ -42,7 +50,7 @@ import {HttpModule} from "@nestjs/axios";
     ],
     controllers: [PagamentosAPIController],
     imports:[DatabaseModule, forwardRef(() => PedidoModule), HttpModule],
-    exports: [IntencaoPagamentoGateway, CadastrarIntencaoPagamentoUseCase]
+    exports: [IntencaoPagamentoGateway, CadastrarIntencaoPagamentoUseCase, IPagamentoClient]
 })
 
 export class PagamentosModule {}

@@ -6,6 +6,7 @@ import { CadastrarPedidoUseCase } from "../../use-cases/cadastrar-pedido-use-cas
 import { PedidoDTO } from "../../dto/pedidoDTO";
 import {IntencaoPagamentoGateway} from "../../../pagamento/adapters/gateways/intencaoPagamento-gateway";
 import {CadastrarIntencaoPagamentoUseCase} from "../../../pagamento/use-cases/cadastrar-intencao-pagamento-use-case";
+import {IPagamentoClient} from "../../../pagamento/external/client/pagamento-client.interface";
 
 @Injectable()
 export class CadastrarPedidoController {
@@ -14,6 +15,7 @@ export class CadastrarPedidoController {
     private readonly clienteGateway: ClienteGateway,
     private readonly produtoGateway: ProdutoGateway,
     private readonly intencaoPagamentoGateway: IntencaoPagamentoGateway,
+    private readonly pagamentoClient: IPagamentoClient,
     private readonly cadastrarIntencaoPagamentoUseCase: CadastrarIntencaoPagamentoUseCase,
     private readonly cadastrarPedidoUseCase: CadastrarPedidoUseCase
   ) {}
@@ -23,6 +25,7 @@ export class CadastrarPedidoController {
         this.clienteGateway,
         this.produtoGateway,
         this.intencaoPagamentoGateway,
+        this.pagamentoClient,
         this.cadastrarIntencaoPagamentoUseCase,
         this.pedidoGateway,
         pedido

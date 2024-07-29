@@ -9,6 +9,10 @@ export class IntencaoPagamento {
 
     status: string;
 
+    qrCode: string | null;
+
+    idExterno: string | null;
+
     constructor() {
         this.status = IntencaoPagamentoStatusType.EM_ANALISE;
         this.dataCriacao = new Date();

@@ -16,7 +16,9 @@ export class PedidoEntity {
   @Column()
   idPagamento: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   idCliente: string | null;
 
   @Column("decimal", { precision: 5, scale: 2, name: "valor", nullable: false })

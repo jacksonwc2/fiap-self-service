@@ -32,7 +32,7 @@ export class AtualizarStatusIntencaoPagamentoUseCase {
 
             const pedido = await pedidoGateway.buscarPorIdPagamento(intencaoPagamento.id);
 
-            if (intencaoPagamento.status == IntencaoPagamentoStatusType.FINALIZADO) {
+            if (result.status == IntencaoPagamentoStatusType.FINALIZADO) {
                 atualizarStatusPedido.status = PedidoStatusType.PREPARACAO
             } else {
                 atualizarStatusPedido.status = PedidoStatusType.FINALIZADO

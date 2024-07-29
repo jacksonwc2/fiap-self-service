@@ -25,4 +25,15 @@ export class IntencaoPagamentoEntity {
     })
     status: string;
 
+    @Column({
+        nullable: true,
+        type: 'longtext'
+    })
+    qrCode: string | null;
+
+    @Column({
+        nullable: true,
+    })
+    idExterno: string | null;
+
 }
