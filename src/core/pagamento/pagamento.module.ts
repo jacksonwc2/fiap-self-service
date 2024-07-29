@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import {forwardRef, Module} from "@nestjs/common";
 import {PagamentosAPIController} from "./external/api/pagamento-api.controller";
 import {DatabaseModule} from "../../infrastructure/database/database.module";
 import {AtualizarStatusIntencaoPagamentoUseCase} from "./use-cases/atualizar-intencao-pagamento-use-case";
@@ -11,6 +11,8 @@ import {IntencaoPagamentoEntity} from "./external/repository/intencaoPagamento.e
 import {IIntencaoPagamentoRepository} from "./external/repository/intencaoPagamento-repository.interface";
 import {IntencaoRepository} from "./external/repository/intencaoPagamento-repository";
 import {CadastrarIntencaoPagamentoUseCase} from "./use-cases/cadastrar-intencao-pagamento-use-case";
+import {PedidoModule} from "../pedido/pedido.module";
+import {HttpModule} from "@nestjs/axios";
 
 @Module({
     providers:[
@@ -39,7 +41,7 @@ import {CadastrarIntencaoPagamentoUseCase} from "./use-cases/cadastrar-intencao-
         }
     ],
     controllers: [PagamentosAPIController],
-    imports:[DatabaseModule],
+    imports:[DatabaseModule, forwardRef(() => PedidoModule), HttpModule],
     exports: [IntencaoPagamentoGateway, CadastrarIntencaoPagamentoUseCase]
 })
 

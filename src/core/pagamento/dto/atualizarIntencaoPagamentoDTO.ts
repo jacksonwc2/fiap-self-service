@@ -8,4 +8,6 @@ export class AtualizarIntencaoPagamentoDTO {
     @IsNotEmpty()
     @IsEnum(IntencaoPagamentoStatusType)
     status: string;
+
+    dataFinalizacao: Date | null;
 }

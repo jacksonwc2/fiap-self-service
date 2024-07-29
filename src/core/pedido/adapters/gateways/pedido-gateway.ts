@@ -23,6 +23,10 @@ export class PedidoGateway {
     return await this.pedidoRepository.buscarPorIdPedido(id);
   }
 
+  async buscarPorIdPagamento(id: string): Promise<Pedido | null> {
+    return await this.pedidoRepository.buscarPorIdPagamento(id);
+  }
+
   async atualizarStatusPedido(
     id: string,
     atualizarStatusPedidoDTO: AtualizarPedidoDTO

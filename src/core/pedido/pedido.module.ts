@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import {forwardRef, Module} from "@nestjs/common";
 import { IPedidoRepository } from "./external/repository/pedido-repository.interface";
 import { PedidoRepository } from "./external/repository/pedido-repository";
 import { CadastrarPedidoUseCase } from "./use-cases/cadastrar-pedido-use-case";
@@ -59,6 +59,7 @@ import {PagamentosModule} from "../pagamento/pagamento.module";
     },
   ],
   controllers: [PedidoAPIController],
-  imports: [DatabaseModule, ProdutoModule, ClienteModule, PagamentosModule],
+  exports: [PedidoGateway],
+  imports: [DatabaseModule, ProdutoModule, ClienteModule, forwardRef(()=>PagamentosModule)],
 })
 export class PedidoModule {}

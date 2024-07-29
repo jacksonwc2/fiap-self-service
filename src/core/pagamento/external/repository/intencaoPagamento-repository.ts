@@ -19,6 +19,7 @@ export class IntencaoRepository implements IIntencaoPagamentoRepository {
     ): Promise<IntencaoPagamentoEntity> {
         const intencaoPagamentoEntity = await this.intencaoPedidoRepository.findOneBy({ id });
         intencaoPagamentoEntity.status = atualizarStatusPedidoDTO.status;
+        intencaoPagamentoEntity.dataFinalizacao = atualizarStatusPedidoDTO.dataFinalizacao;
         await this.intencaoPedidoRepository.update({ id }, intencaoPagamentoEntity);
 
         return intencaoPagamentoEntity;
