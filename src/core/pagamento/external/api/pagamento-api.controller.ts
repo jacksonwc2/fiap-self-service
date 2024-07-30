@@ -23,9 +23,9 @@ export class PagamentosAPIController {
         private readonly consultarIntencaoPagamentoPorIdController: ConsultarIntencaoPagamentoPorIdController
     ) {}
 
-    @Post('/:id')
+    @Post('/webhook/:id')
     @ApiOperation({
-        summary: 'Atualizar status de Intenção de Pagamento',
+        summary: 'Webhook para atualizar status de Intenção de Pagamento',
         description:
     'Atualiza apenas status do pedido, os status possíveis são [EM_ANALISE, RECUSADO, FINALIZADO]'
     })

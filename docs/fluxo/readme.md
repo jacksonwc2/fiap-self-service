@@ -66,7 +66,7 @@ Além deste endpoint, se necessário você pode estar pesquisando e atualizando 
 
 Após criar um novo pedido você deve acionar o webhook POST /pagamentos/{id}
 
-* http://localhost:3000/api#/Pagamentos/PagamentosAPIController_atualizarStatusIntencaoPagamento
+* http://localhost:3000/api#/Pagamentos/webhook/PagamentosAPIController_atualizarStatusIntencaoPagamento
 
 **Observação:** Lembre-se de alterar os id de exemplo do swagger para utilizar os ID do pagamento retornado pelo endpoint de criação do pedido executado anteriormente.
 

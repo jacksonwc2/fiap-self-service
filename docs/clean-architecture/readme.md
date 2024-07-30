@@ -40,6 +40,8 @@ Dessa forma, teremos na raiz do projeto um diretório contendo os dominios e mod
 **src/core**
 
 ![modulos](modulos.png)
+![modulos](modulo-pagamento.png)
+
 
 Dentro da estrutura de cada módulo/domínio teremos o diretório **external** que representa a camada de **Frameworks and Drivers** para o dominio especifico da aplicação.
 
