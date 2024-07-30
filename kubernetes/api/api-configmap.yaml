@@ -7,3 +7,4 @@ metadata:
 data:
   DATABASE_HOST: "localhost" # SUBSTITUI PELO CLUSTER IP mysql-nodeport-svc
   DATABASE_PORT: "3306"
+  APPLICATION_PORT: "3000"
