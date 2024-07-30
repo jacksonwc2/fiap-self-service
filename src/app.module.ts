@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { ClienteModule } from './cliente/cliente.module';
-import { ProdutoModule } from './produto/produto.module';
-import { PedidoModule } from './pedido/pedido.module';
-import { DatabaseModule } from './database/database.module';
+import { ClienteModule } from './core/cliente/cliente.module';
+import { ProdutoModule } from './core/produto/produto.module';
+import { PedidoModule } from './core/pedido/pedido.module';
+import { PagamentosModule } from "./core/pagamento/pagamento.module";
+import { DatabaseModule } from './infrastructure/database/database.module';
 import { ConfigModule } from '@nestjs/config';
-import { HealthModule } from './health/health.module';
+import { HealthModule } from './infrastructure/health/health.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { HealthModule } from './health/health.module';
     ClienteModule,
     ProdutoModule,
     PedidoModule,
+    PagamentosModule,
     DatabaseModule,
     HealthModule,
   ],

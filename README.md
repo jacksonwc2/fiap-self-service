@@ -32,7 +32,44 @@ O sistema tem como objetivo principal facilitar e otimizar o gerenciamento de pe
    - Cadastro e atualização dos produtos.
    - Gerenciamento dos pedidos.
 
-### **Entregáveis**
+## **Entregáveis**
+### ***Tech Challenge 2***
+
+0. **Clean Architecture**
+
+   A proposta de adequação ao clean code e clean architecture está especificada no documento: 
+   [Proposta Clean Arch](docs/clean-architecture/readme.md)   
+
+1. **Desenho da Arquitetura**
+   
+   Diagrama da arquitetura Kubernetes da aplicação. Os arquivos de configuração *kubctl* são encontrados no 
+   diretório: [Componentes Kubernetes](kubernetes)
+   ![Desenho](docs/arquitetura-kubernetes.gif)
+   Para construir os componentes da arquitetura, basta executar os seguintes comandos:
+
+   ```
+   kubectl apply -f kubernetes/metrics
+   kubectl apply -f kubernetes/db
+   kubectl apply -f kubernetes/api
+   ```
+
+2. **Swagger**
+
+   Collection com todas as APIs desenvolvidas com exemplo de requisição (que não seja vazia):
+   ![Swagger](docs/swagger2.png)
+   
+
+3. **Fluxo do Sistema**
+
+   Consulte o guia completo com todas as instruções para execução do projeto:
+[Fluxo do Sistema](docs/fluxo/readme.md)
+
+4. **Link do vídeo da arquitetura desenvolvida**
+
+
+
+### ***Tech Challenge 1***
+
 
 1. **Documentação DDD**
 
