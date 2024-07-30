@@ -66,7 +66,7 @@ O sistema tem como objetivo principal facilitar e otimizar o gerenciamento de pe
 
 4. **Link do vídeo da arquitetura desenvolvida**
 
-
+    [Confira o vídeo no youtube](https://youtu.be/tb6vwCw_O_E)
 
 ### ***Tech Challenge 1***
 
