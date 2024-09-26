@@ -12,4 +12,4 @@ spec:
   storageClassName: local-storage-db
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /home/jackson/fiap-pv-mysql
+    path: ./
