@@ -26,8 +26,8 @@ export const databaseProviders = [
         type: 'mongodb',
         host: process.env.DOCUMENT_DATABASE_HOST,
         port: parseInt(process.env.DOCUMENT_DATABASE_PORT),
-        //username: process.env.DOCUMENT_DATABASE_USERNAME,
-        //password: process.env.DOCUMENT_DATABASE_PASSWORD,
+        username: process.env.DOCUMENT_DATABASE_USERNAME,
+        password: process.env.DOCUMENT_DATABASE_PASSWORD,
         database: process.env.DOCUMENT_DATABASE_DATABASE,
         entities: [__dirname + '/../../core/**/*.entity.document{.ts,.js}']
       });
@@ -40,9 +40,7 @@ export const databaseProviders = [
     useFactory: async () => {
       return new DynamoDB.DocumentClient({
         region: process.env.DYNAMODB_REGION,
-        endpoint: process.env.DYNAMODB_ENDPOINT,
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        endpoint: process.env.DYNAMODB_ENDPOINT
       })
     }
   }
