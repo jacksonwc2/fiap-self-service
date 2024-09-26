@@ -30,7 +30,7 @@ export class AtualizarStatusIntencaoPagamentoUseCase {
                 atualizarStatusIntencaoPagamentoDTO
             );
 
-            const pedido = await pedidoGateway.buscarPorIdPagamento(intencaoPagamento.id);
+            const pedido = await pedidoGateway.buscarPorIdPagamento(intencaoPagamento.id.toHexString());
 
             if (result.status == IntencaoPagamentoStatusType.FINALIZADO) {
                 atualizarStatusPedido.status = PedidoStatusType.PREPARACAO

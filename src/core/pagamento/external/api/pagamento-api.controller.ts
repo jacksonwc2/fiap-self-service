@@ -37,6 +37,7 @@ export class PagamentosAPIController {
         return await this.atualizarStatusIntencaoPagamentoController.execute(id, atualizarStatusIntencaoPagamento);
     }
 
+    //todo: alterar para pegar a intenção pelo id do Pedido
     @Get('/:idIntencao')
     @ApiOperation({
         summary: 'Consulta uma Intenção de Pagamento pelo Id.',

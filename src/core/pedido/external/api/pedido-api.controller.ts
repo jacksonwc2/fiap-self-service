@@ -14,6 +14,7 @@ import { ListarPedidoPorIdClienteController } from '../../adapters/controllers/l
 import { AtualizarStatusPedidoController } from '../../adapters/controllers/atualizar-status-pedido-controller';
 import { PedidoDTO } from '../../dto/pedidoDTO';
 import { AtualizarPedidoDTO } from '../../dto/atualizarStatusPedidoDTO';
+import {ListarPedidosAtivosController} from "../../adapters/controllers/listar-pedidos-ativos-controller";
 
 @ApiTags('Pedidos')
 @Controller('pedidos')
@@ -22,6 +23,7 @@ export class PedidoAPIController {
         private readonly cadastrarPedidoController: CadastrarPedidoController,
         private readonly consultarPedidoPorIdController: ConsultarPedidoPorIdController,
         private readonly listarPedidoController: ListarPedidoController,
+        private readonly listarPedidosAtivosController: ListarPedidosAtivosController,
         private readonly listarPedidoPorIdClienteController: ListarPedidoPorIdClienteController,
         private readonly atualizarStatusPedidoController: AtualizarStatusPedidoController,
     ) {}
@@ -50,6 +52,17 @@ export class PedidoAPIController {
     async listarPedidos(
     ): Promise<PedidoDTO[]> {
         return await this.listarPedidoController.execute();
+    }
+
+    @Get('/listarPedidosAtivos')
+    @ApiOperation({
+        summary: 'Lista pedidos ativos.',
+        description: 'Retorna todos os pedidos ativos.',
+    })
+    @ApiResponse({ status: 200, description: 'Pedidos encontrados.'})
+    async listarPedidosAtivos(
+    ): Promise<PedidoDTO[]> {
+        return await this.listarPedidosAtivosController.execute();
     }
 
     @Get('/:idPedido')

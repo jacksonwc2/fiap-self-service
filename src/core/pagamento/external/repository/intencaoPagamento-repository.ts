@@ -1,7 +1,8 @@
 import {IIntencaoPagamentoRepository} from "./intencaoPagamento-repository.interface";
 import {AtualizarIntencaoPagamentoDTO} from "../../dto/atualizarIntencaoPagamentoDTO";
-import {IntencaoPagamentoEntity} from "./intencaoPagamento.entity";
-import {Repository} from "typeorm";
+import {IntencaoPagamentoEntity} from "./intencaoPagamento.entity.document";
+import {MongoRepository} from "typeorm";
+import {ObjectId} from "mongodb";
 import {Inject} from "@nestjs/common";
 import {IntencaoPagamento} from "../../entities/intencaoPagamento";
 
@@ -9,7 +10,7 @@ export class IntencaoRepository implements IIntencaoPagamentoRepository {
 
     constructor(
         @Inject("INTENCAO_PAGAMENTO_REPOSITORY")
-        private readonly intencaoPedidoRepository: Repository<IntencaoPagamentoEntity>
+        private readonly intencaoPedidoRepository: MongoRepository<IntencaoPagamentoEntity>
     ) {
     }
 
@@ -17,16 +18,15 @@ export class IntencaoRepository implements IIntencaoPagamentoRepository {
         id: string,
         atualizarStatusPedidoDTO: AtualizarIntencaoPagamentoDTO
     ): Promise<IntencaoPagamentoEntity> {
-        const intencaoPagamentoEntity = await this.intencaoPedidoRepository.findOneBy({ id });
-        intencaoPagamentoEntity.status = atualizarStatusPedidoDTO.status;
-        intencaoPagamentoEntity.dataFinalizacao = atualizarStatusPedidoDTO.dataFinalizacao;
-        await this.intencaoPedidoRepository.update({ id }, intencaoPagamentoEntity);
+        const intencaoPagamentoEntity = await this.intencaoPedidoRepository.findOneBy({_id: new ObjectId(id)});
+        Object.assign(intencaoPagamentoEntity, atualizarStatusPedidoDTO)
+        await this.intencaoPedidoRepository.save(intencaoPagamentoEntity);
 
         return intencaoPagamentoEntity;
     }
 
     async buscarPorIdPagamento(id: string): Promise<IntencaoPagamentoEntity> {
-        const intencaoPagamentoEntity = await this.intencaoPedidoRepository.findOneBy({ id });
+        const intencaoPagamentoEntity = await this.intencaoPedidoRepository.findOneBy({_id: new ObjectId(id)});
 
         if (!intencaoPagamentoEntity) {
             return null;

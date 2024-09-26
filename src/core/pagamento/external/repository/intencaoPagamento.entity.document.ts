@@ -3,13 +3,14 @@ import {
     Entity,
     Column,
     CreateDateColumn,
-    PrimaryGeneratedColumn,
+    ObjectId,
+    ObjectIdColumn,
 } from "typeorm";
 
-@Entity()
+@Entity('payments')
 export class IntencaoPagamentoEntity {
-    @PrimaryGeneratedColumn("uuid")
-    id: string | null;
+    @ObjectIdColumn()
+    id: ObjectId;
 
     @CreateDateColumn()
     dataCriacao: Date;
@@ -35,5 +36,8 @@ export class IntencaoPagamentoEntity {
         nullable: true,
     })
     idExterno: string | null;
+
+    @Column()
+    data: object | null;
 
 }

@@ -1,5 +1,5 @@
 import { AtualizarIntencaoPagamentoDTO } from "../../dto/atualizarIntencaoPagamentoDTO";
-import { IntencaoPagamentoEntity } from "./intencaoPagamento.entity";
+import { IntencaoPagamentoEntity } from "./intencaoPagamento.entity.document";
 
 export abstract class IIntencaoPagamentoRepository {
     abstract salvarPagamento(pagamento: IntencaoPagamentoEntity): Promise<IntencaoPagamentoEntity>;

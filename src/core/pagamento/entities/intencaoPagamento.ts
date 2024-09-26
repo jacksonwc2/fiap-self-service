@@ -1,7 +1,7 @@
 import { IntencaoPagamentoStatusType } from "./intencaoPagamentoStatus-type.enum";
 
 export class IntencaoPagamento {
-    id: string | null;
+    id: any;
 
     dataCriacao: Date;
 
@@ -12,6 +12,8 @@ export class IntencaoPagamento {
     qrCode: string | null;
 
     idExterno: string | null;
+
+    data: object | null;
 
     constructor() {
         this.status = IntencaoPagamentoStatusType.EM_ANALISE;

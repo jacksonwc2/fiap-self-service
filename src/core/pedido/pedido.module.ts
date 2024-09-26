@@ -20,6 +20,11 @@ import { PedidoGateway } from "./adapters/gateways/pedido-gateway";
 import { ProdutoModule } from "../produto/produto.module";
 import { ClienteModule } from "../cliente/cliente.module";
 import {PagamentosModule} from "../pagamento/pagamento.module";
+import {DynamoDB} from "aws-sdk";
+import {IPedidoCacheRepository} from "./external/repository/pedido-cache-repository.interface";
+import {PedidoCacheRepository} from "./external/repository/pedido-cache-repository";
+import {ListarPedidosAtivosController} from "./adapters/controllers/listar-pedidos-ativos-controller";
+import {ListarPedidosAtivosUseCase} from "./use-cases/listar-pedidos-ativos-use-case";
 
 @Module({
   providers: [
@@ -29,6 +34,7 @@ import {PagamentosModule} from "../pagamento/pagamento.module";
     ListarPedidoUseCase,
     AtualizarStatusPedidoUseCase,
     ListarPedidoPorIdClienteUseCase,
+    ListarPedidosAtivosUseCase,
 
     // controllers
     CadastrarPedidoController,
@@ -36,6 +42,7 @@ import {PagamentosModule} from "../pagamento/pagamento.module";
     ListarPedidoController,
     AtualizarStatusPedidoController,
     ListarPedidoPorIdClienteController,
+    ListarPedidosAtivosController,
 
     // gateways
     PedidoGateway,
@@ -44,6 +51,10 @@ import {PagamentosModule} from "../pagamento/pagamento.module";
     {
       provide: IPedidoRepository,
       useClass: PedidoRepository,
+    },
+    {
+      provide: IPedidoCacheRepository,
+      useClass: PedidoCacheRepository,
     },
     {
       provide: "PEDIDO_REPOSITORY",
@@ -56,6 +67,12 @@ import {PagamentosModule} from "../pagamento/pagamento.module";
       useFactory: (datasource: DataSource) =>
         datasource.getRepository(ItemPedidoEntity),
       inject: ["DATA_SOURCE"],
+    },
+    {
+      provide: "PEDIDO_CACHE_REPOSITORY",
+      useFactory: (source: DynamoDB.DocumentClient) =>
+        source,
+      inject: ["CACHE_DATA_SOURCE"],
     },
   ],
   controllers: [PedidoAPIController],

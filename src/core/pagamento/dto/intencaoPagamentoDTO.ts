@@ -12,4 +12,5 @@ export class IntencaoPagamentoDTO {
 
     qrCode: string | null;
 
+    data: object | null;
 }

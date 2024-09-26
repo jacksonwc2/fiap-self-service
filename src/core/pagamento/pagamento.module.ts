@@ -7,7 +7,7 @@ import {ConsultarIntencaoPagamentoPorIdController} from "./adapters/controllers/
 import {AtualizarStatusIntencaoPagamentoController} from "./adapters/controllers/atualizarIntencaoPagamento-controller";
 import {IntencaoPagamentoGateway} from "./adapters/gateways/intencaoPagamento-gateway";
 import {DataSource} from "typeorm";
-import {IntencaoPagamentoEntity} from "./external/repository/intencaoPagamento.entity";
+import {IntencaoPagamentoEntity} from "./external/repository/intencaoPagamento.entity.document";
 import {IIntencaoPagamentoRepository} from "./external/repository/intencaoPagamento-repository.interface";
 import {IntencaoRepository} from "./external/repository/intencaoPagamento-repository";
 import {CadastrarIntencaoPagamentoUseCase} from "./use-cases/cadastrar-intencao-pagamento-use-case";
@@ -45,7 +45,7 @@ import {PagamentoMockClient} from "./external/client/pagamentoMock-client";
             provide: "INTENCAO_PAGAMENTO_REPOSITORY",
             useFactory: (datasource: DataSource) =>
                 datasource.getRepository(IntencaoPagamentoEntity),
-            inject: ["DATA_SOURCE"]
+            inject: ["DOCUMENT_DATA_SOURCE"]
         }
     ],
     controllers: [PagamentosAPIController],
